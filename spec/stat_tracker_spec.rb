@@ -16,28 +16,28 @@ RSpec.describe StatTracker do
   describe '#initialize' do
     it 'exists' do
       stat_tracker = StatTracker.new(@locations)
-      expect(@stat_tracker).to be_an_instance_of(StatTracker)
+      expect(stat_tracker).to be_an_instance_of(StatTracker)
     end
 
     it 'has attributes' do
       stat_tracker = StatTracker.new(@locations)
-      expect(@stat_tracker.game_path).to eq('./data/games.csv')
-      expect(@stat_tracker.team_path).to eq('./data/teams.csv')
-      expect(@stat_tracker.game_teams_path).to eq('./data/game_teams.csv')
+      expect(stat_tracker.game_path).to eq('./data/games.csv')
+      expect(stat_tracker.team_path).to eq('./data/teams.csv')
+      expect(stat_tracker.game_teams_path).to eq('./data/game_teams.csv')
     end
   end
 
   describe '#from_csv' do
     it 'exists' do
       stat_tracker = StatTracker.from_csv(@locations)
-      expect(@stat_tracker).to be_an_instance_of(StatTracker)
+      expect(stat_tracker).to be_an_instance_of(StatTracker)
     end
 
     it 'has attributes' do
       stat_tracker = StatTracker.from_csv(@locations)
-      expect(@stat_tracker.game_path).to eq('./data/games.csv')
-      expect(@stat_tracker.team_path).to eq('./data/teams.csv')
-      expect(@stat_tracker.game_teams_path).to eq('./data/game_teams.csv')
+      expect(stat_tracker.game_path).to eq('./data/games.csv')
+      expect(stat_tracker.team_path).to eq('./data/teams.csv')
+      expect(stat_tracker.game_teams_path).to eq('./data/game_teams.csv')
     end
   end
 end
