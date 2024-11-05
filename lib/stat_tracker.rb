@@ -8,4 +8,8 @@ class StatTracker
     @team_path = locations[:teams]
     @game_teams_path = locations[:game_teams]
   end
+
+  def self.from_csv(locations)
+    self.new(locations)
+  end
 end
