@@ -1,0 +1,86 @@
+GameTeams:
+
+
+
+Games:
+
+
+
+Teams:
+
+
+
+initialize(locations)
+v1 v2 v3 = Path locations
+
+hm1(path)
+creates objects (Game)
+
+hm2(path) 
+creates objects (Team)
+
+hm3(path)
+creates objects (GameTeam)
+
+def count_of_teams
+  game.count_of_teams
+end
+
+team.method_name
+
+stat_tracker.game.count_of_teams
+
+class Game
+ statistics => attributes
+ methods => calculating statistics
+
+ def count_of_teams
+
+ end
+end
+
+-----------------------------------
+
+before(:each)
+code
+end
+
+"creates fresh data"
+test 1
+
+"creates fresh data"
+test 2
+
+"creates fresh data"
+test 3
+
+------------------------------------
+
+before(:all)
+code
+end
+
+"creates fresh data"
+test 1
+
+"resuses"
+test 2
+
+"resuses"
+test 3
+
+------------------------------------
+
+require 'rspec'
+require_relative '../lib/stat_tracker'
+require_relative '../lib/data_loader'  # Ensure DataLoader is included for CSV loading
+RSpec.describe StatTracker do
+  before(:all) do
+    @locations = {
+      games: './data/games.csv',
+      teams: './data/teams.csv',
+      game_teams: './data/game_teams.csv'
+    }
+    # Initialize StatTracker using from_csv
+    @stat_tracker = StatTracker.from_csv(@locations)
+  end
