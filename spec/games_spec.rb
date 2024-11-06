@@ -18,15 +18,15 @@ RSpec.describe Games do
         end
     end
 
-    # describe '#self.from_csv' do 
-    #     it 'creates games from csv' do
-    #         game_path = './data/games.csv'
-    #         games = Games.load_csv(game_path)
-    #     games.each do |game|
-    #         expect(game).to be_an_instance_of(Games)
-    #     end
+    describe '#self.from_csv' do 
+        it 'creates games from csv' do
+            game_path = './data/games.csv'
+            games = Games.load_csv(game_path)
+        games.each do |game|
+            expect(game).to be_an_instance_of(Games)
+        end
 
-    #     expect(games[1].season).to eq(20122013) 
-    #     end
-    # end
+        expect(games[1].season).to eq(20122013) 
+        end
+    end
 end
