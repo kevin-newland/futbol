@@ -45,4 +45,15 @@ RSpec.describe GameTeams do
       expect(@objects[1].tackles).to eq(51)
     end
   end
+
+  describe '#all' do
+    it 'returns an array of all of its instances' do
+      expect(GameTeams.all.count).to eq(2)
+      expect(GameTeams.all).to be_an(Array)
+      
+      GameTeams.all.each do |object|
+        expect(object).to be_an_instance_of(GameTeams)
+      end
+    end
+  end
 end
