@@ -1,5 +1,5 @@
 # lib/stat_calculator.rb
 
 class StatCalculator
-  # Methods and logic will go here
+  # Additional methods for calculations will go here
 end
