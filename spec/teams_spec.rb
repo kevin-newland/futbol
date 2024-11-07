@@ -11,7 +11,7 @@ RSpec.describe Teams do
     it 'has attributes' do
       team1 = Teams.new(1, "Atlanta United")
       expect(team1.team_id).to eq(1)
-      expect(team1.teamName).to eq("Atlanta United")
+      expect(team1.team_name).to eq("Atlanta United")
     end
   end
 
@@ -25,6 +25,17 @@ RSpec.describe Teams do
       end
 
       expect(teams.count).to eq(5)
+    end
+
+    it 'still has attributes' do
+      file_path = './spec/fixtures/fixture_teams.csv'
+      teams = Teams.load_csv(file_path)
+
+      teams.each do |team|
+        
+        expect(team.team_id).not_to be_nil
+        expect(team.team_name).not_to be_nil
+      end
     end
   end
 end
