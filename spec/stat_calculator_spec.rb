@@ -1,6 +1,5 @@
 # spec/stat_calculator_spec.rb
-require 'rspec'
-require_relative '../lib/stat_calculator'
+require'spec_helper'
 
 RSpec.describe StatCalculator do
   it 'exists' do
