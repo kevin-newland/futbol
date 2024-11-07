@@ -28,14 +28,10 @@ RSpec.describe Teams do
     end
 
     it 'still has attributes' do
-      file_path = './spec/fixtures/fixture_teams.csv'
-      teams = Teams.load_csv(file_path)
-
-      teams.each do |team|
-        
-        expect(team.team_id).not_to be_nil
-        expect(team.team_name).not_to be_nil
-      end
+      expect(Teams.all[1].team_id).to eq(4)
+      expect(Teams.all[1].team_name).to eq("Chicago Fire")
+      expect(Teams.all[2].team_id).to eq(26)
+      expect(Teams.all[2].team_name).to eq("FC Cincinnati")
     end
   end
 end
