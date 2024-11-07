@@ -1,17 +1,14 @@
-# lib/stat_calculator.rb
-
 class StatCalculator
   attr_reader :games,
               :teams,
               :game_teams
-  
-def initialize(games, teams, game_teams)
-  @games = games
-  @teams = teams
-  @game_teams = game_teams
-end
-  # Additional methods for calculations will go here
 
+
+  def initialize(games, teams, game_teams)
+    @games = games
+    @teams = teams
+    @game_teams = game_teams
+  end
 
   def highest_total_score	
     total = 0
@@ -24,7 +21,6 @@ end
     total
   end
 
-
   def lowest_total_score
     total = 0
     games.each do |game|
@@ -34,5 +30,9 @@ end
         end
     end
     total
+  end
+
+  def count_of_teams
+    @teams.count
   end
 end

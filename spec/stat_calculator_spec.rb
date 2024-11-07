@@ -5,7 +5,7 @@ RSpec.describe StatCalculator do
     Games.load_csv('./data/games.csv')
     Teams.load_csv('./data/teams.csv')
     GameTeams.from_csv('./data/game_teams.csv')
-  
+
     @games = Games.all
     @teams = Teams.all
     @game_teams = GameTeams.all
@@ -24,14 +24,22 @@ RSpec.describe StatCalculator do
     end
   end
 
-  describe 'score stastistics' do
+  describe '#count_of_teams' do
+    it 'returns the number of teams' do
+      expect(@stat_calculator.count_of_teams).to eq(32)
+      expect(Teams.all.count).to eq(32)
+    end
+  end
+
+  describe '#highest_total_score' do
     it 'returns the highest total score' do
       expect(@stat_calculator.highest_total_score).to eq(11)
     end
+  end
 
+  describe '#lowest_total_score' do
     it 'returns the lowest total score' do
       expect(@stat_calculator.lowest_total_score).to eq(0)  
     end
   end
-
 end
