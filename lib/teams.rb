@@ -1,12 +1,12 @@
 class Teams 
   attr_reader :team_id, 
-              :teamName
+              :team_name
 
    @@instances = []
 
-  def initialize(team_id, teamName)
+  def initialize(team_id, team_name)
     @team_id = team_id
-    @teamName = teamName
+    @team_name = team_name
   end
 
   def self.load_csv(file_path)
