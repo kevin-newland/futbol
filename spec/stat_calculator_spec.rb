@@ -30,4 +30,16 @@ RSpec.describe StatCalculator do
       expect(Teams.all.count).to eq(32)
     end
   end
+
+  describe '#highest_total_score' do
+    it 'returns the highest total score' do
+      expect(@stat_calculator.highest_total_score).to eq(11)
+    end
+  end
+
+  describe '#lowest_total_score' do
+    it 'returns the lowest total score' do
+      expect(@stat_calculator.lowest_total_score).to eq(0)  
+    end
+  end
 end
