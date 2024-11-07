@@ -23,6 +23,8 @@ RSpec.describe Teams do
       teams.each do |team|
         expect(team).to be_an_instance_of(Teams)
       end
+
+      expect(teams.count).to eq(5)
     end
   end
 end
