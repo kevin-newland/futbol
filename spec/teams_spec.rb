@@ -16,6 +16,10 @@ RSpec.describe Teams do
   end
 
   describe '#self.load_csv' do
+    before(:all) do
+      Teams.reset
+    end
+
     it 'creates team from path and adds them to array through iteration' do
       file_path = './spec/fixtures/fixture_teams.csv'
       teams = Teams.load_csv(file_path)
