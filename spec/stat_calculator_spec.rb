@@ -28,7 +28,7 @@ RSpec.describe StatCalculator do
   end
   
   it 'calculates percentage_ties' do
-    # 2 out of 5 games in @games_data are ties
+    # 2 out of 5 games in @games_data are ties 
     expect(@stat_calculator.percentage_ties(@games_data)).to eq(40.0)
   end
 end
