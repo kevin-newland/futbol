@@ -3,30 +3,54 @@ require_relative 'games_spec'
 require './lib/games'
 
 RSpec.describe Games do
-    describe '#initialize' do
-        it 'exists' do
-            game_1 = Games.new(2012030221, 20122013, 3, 6, 2, 3)
+    before(:each) do
+        @game_objects = []
 
-            expect(game_1).to be_a(Games)
-        end
-
-        it 'has attributes' do
-            game_1 = Games.new(2012030221, 20122013, 3, 6, 2, 3)
-
-            expect(game_1.game_id).to eq(2012030221)
-            expect(game_1.home_team_id).to eq(6)
+        #iterate over the csv file to create an array of game objects
+        CSV.foreach('./spec/fixtures/fixture_games.csv', headers: true, header_converters: :symbol) do |row|
+            @game_objects << Games.new(
+              row[:game_id],
+              row[:season],
+              row[:away_team_id],
+              row[:home_team_id],
+              row[:away_goals].to_i,
+              row[:home_goals].to_i,
+            )
         end
     end
 
-    describe '#self.from_csv' do 
-        it 'creates games from csv' do
-            game_path = './data/games.csv'
-            games = Games.load_csv(game_path)
-        games.each do |game|
-            expect(game).to be_an_instance_of(Games)
+    describe '#initialize' do
+        it 'exists' do
+            #test several elements in the game objects array to ensure they're all instances of Games
+            expect(@game_objects[0]).to be_an_instance_of(Games)
+            expect(@game_objects[1]).to be_an_instance_of(Games)
+            expect(@game_objects[2]).to be_an_instance_of(Games)
+            expect(@game_objects[3]).to be_an_instance_of(Games)
         end
 
-        expect(games[1].season).to eq(20122013) 
+        it 'has attributes' do
+
+            expect(@game_objects[0].game_id).to eq("2012030221")
+            expect(@game_objects[0].home_team_id).to eq("6")
+            expect(@game_objects[1].away_goals).to eq(2)
+            expect(@game_objects[1].game_id).to eq("2012030222")
+        end
+    end
+
+    describe '#self.load_csv' do 
+        it 'creates games from csv' do
+            #when given a file pathway string, it will create objects using the data in the csv file'
+            game_path = './data/games.csv'
+            games = Games.load_csv(game_path)
+            games.each do |game|
+                expect(game).to be_an_instance_of(Games)
+            end
+
+            expect(games[1].season).to eq("20122013")
+            expect(games[0].game_id).to eq("2012030221")
+            expect(games[0].home_team_id).to eq("6")
+            expect(games[1].away_goals).to eq(2)
+            expect(games[1].game_id).to eq("2012030222")
         end
     end
 end
