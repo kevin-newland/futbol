@@ -32,5 +32,9 @@ class Games
       # Return all instances loaded from the CSV, stored in @@games_instances
       @@games_instances
     end
+
+    def self.all
+      @@games_instances
+    end
 end
   
