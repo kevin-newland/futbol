@@ -1,6 +1,5 @@
 #spec/spec_helper.rb
 # require 'simplecov'; SimpleCov.start
-
 require 'pry'
 require 'csv'
 require 'rspec'
