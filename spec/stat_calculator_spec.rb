@@ -1,5 +1,5 @@
 # spec/stat_calculator_spec.rb
-require 'spec_helper'
+require_relative 'spec_helper'
 
 RSpec.describe StatCalculator do
   it 'exists' do
