@@ -1,5 +1,4 @@
 require_relative 'spec_helper'
-require_relative 'games_spec'
 require './lib/games'
 
 RSpec.describe Games do
