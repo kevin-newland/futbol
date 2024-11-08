@@ -26,7 +26,25 @@ class StatCalculator
     average_goals.round(2)
   end
 
-  # def average_goals_per_season
-    
-  # end
+  def average_goals_by_season
+    season_goals = {}
+  
+    @games.each do |game|
+      season = game.season
+      
+      season_goals[season] ||= {total_goals: 0, number_games: 0}
+
+      season_goals[season][:total_goals] += game.away_goals + game.home_goals
+      season_goals[season][:number_games] += 1
+    end
+
+    average_goals_season = {}
+
+    season_goals.each do |season, info|
+      average_goals_season[season] = (info[:total_goals].to_f/info[:number_games]).round(2)
+    end
+
+    average_goals_season
+  end
 end
+
