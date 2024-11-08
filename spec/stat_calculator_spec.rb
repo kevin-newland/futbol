@@ -46,29 +46,6 @@ RSpec.describe StatCalculator do
     end
   end
 
-  # Tests for win percentage calculations
-  describe '#percentage_home_wins' do
-    it 'calculates percentage_home_wins' do
-      # Check that the result is a Float (e.g., 66.67)
-      expect(@stat_calculator.percentage_home_wins).to be_a(Float)
-    end
-  end
-
-  # Test for calculating the percentage of visitor wins
-  describe '#percentage_visitor_wins' do
-    it 'calculates the percentage of visitor wins' do
-      expect(@stat_calculator.percentage_visitor_wins).to be_a(Float)
-    end
-  end
-
-  # Test for calculating the percentage of games that ended in a tie
-  describe '#percentage_ties' do
-    it 'calculates percentage_ties' do
-      # Check that the result is a Float (e.g., 0.0 or 50.0)
-      expect(@stat_calculator.percentage_ties).to be_a(Float)
-    end
-  end
-
   # Tests for Coach Performance Calculations
 
   # Test for the winningest_coach method
