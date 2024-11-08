@@ -8,7 +8,7 @@ RSpec.describe StatCalculator do
 
     @games = Games.all
     @teams = Teams.all
-    @game_teams = Games.all
+    @game_teams = GameTeams.all
     @stat_calculator = StatCalculator.new(@games, @teams, @game_teams)
   end
 
