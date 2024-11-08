@@ -3,7 +3,6 @@ class StatCalculator
               :teams,
               :game_teams
 
-
   def initialize(games, teams, game_teams)
     @games = games
     @teams = teams
@@ -23,7 +22,7 @@ class StatCalculator
 
   def lowest_total_score
     total = 0
-    games.each do |game|
+    @games.each do |game|
         total_score = game.away_goals.to_i + game.home_goals.to_i
         if total_score < total
             total = total_score
@@ -84,5 +83,18 @@ class StatCalculator
     end
 
     team.team_name
+  end
+  
+  def count_of_games_by_season
+    season_games = {}
+    @games.each do |game|
+      season_name = game.season
+      if season_games[game.season].nil?
+        season_games[game.season] = 1
+      else
+        season_games[game.season] += 1
+      end
+    end
+    season_games
   end
 end
