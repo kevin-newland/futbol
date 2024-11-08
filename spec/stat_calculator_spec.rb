@@ -44,13 +44,13 @@ RSpec.describe StatCalculator do
   end
 
   describe '#highest_scoring_visitor' do
-    it 'returns the name of the visitor team with the highest score' do
+    it 'returns the name of the away team with the highest average score' do
       expect(@stat_calculator.highest_scoring_visitor).to eq("FC Dallas")
     end
   end
 
   describe '#lowest_scoring_visitor' do
-    it 'returns the name of the visitor with the lowest score' do
+    it 'returns the name of the away team with the lowest average score' do
       expect(@stat_calculator.lowest_scoring_visitor).to eq("San Jose Earthquakes")
     end
   end
