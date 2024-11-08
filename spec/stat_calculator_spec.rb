@@ -20,7 +20,7 @@ RSpec.describe StatCalculator do
     it 'has attributes' do
       expect(@stat_calculator.games).to eq(Games.all)
       expect(@stat_calculator.teams).to eq(Teams.all)
-      expect(@stat_calculator.game_teams).to eq(Games.all)
+      expect(@stat_calculator.game_teams).to eq(GameTeams.all)
     end
   end
 
@@ -43,5 +43,37 @@ RSpec.describe StatCalculator do
       expect(@stat_calculator.average_goals_by_season).to eq(expected)
     end
   end
+
+  describe '#count_of_teams' do
+    it 'returns the number of teams' do
+      expect(@stat_calculator.count_of_teams).to eq(32)
+      expect(Teams.all.count).to eq(32)
+    end
+  end
+
+  describe '#highest_total_score' do
+    it 'returns the highest total score' do
+      expect(@stat_calculator.highest_total_score).to eq(11)
+    end
+  end
+
+  describe '#lowest_total_score' do
+    it 'returns the lowest total score' do
+      expect(@stat_calculator.lowest_total_score).to eq(0)  
+    end
+  end
+
+  describe '#count_of_games_by_season' do
+    it 'returns the total number of games for each season' do
+      expected = {
+        "20122013"=>806,
+        "20162017"=>1317,
+        "20142015"=>1319,
+        "20152016"=>1321,
+        "20132014"=>1323,
+        "20172018"=>1355
+      }
+      expect(@stat_calculator.count_of_games_by_season).to eq(expected)
+    end
+  end
 end
- 
