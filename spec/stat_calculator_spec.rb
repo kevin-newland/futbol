@@ -1,98 +1,84 @@
-class StatCalculator
-  attr_reader :games, :teams, :game_teams
+require_relative 'spec_helper'
 
-  def initialize(games, teams, game_teams)
-    @games = games
-    @teams = teams
-    @game_teams = game_teams
+RSpec.describe StatCalculator do
+  before(:all) do
+    Games.load_csv('./data/games.csv')
+    Teams.load_csv('./data/teams.csv')
+    GameTeams.from_csv('./data/game_teams.csv')
+
+    @games = Games.all
+    @teams = Teams.all
+    @game_teams = GameTeams.all
+    @stat_calculator = StatCalculator.new(@games, @teams, @game_teams)
+    
+    # Set season-specific expected results - update these based on the CSV files
+    @season_id = "20122013"  # Example season_id; replace with an appropriate one based on your dataset
+    @expected_winningest_coach = "Dan Lacroix"    # Expected coach with the highest win percentage for the season
+    @expected_worst_coach = "Martin Raymond"      # Expected coach with the lowest win percentage for the season
   end
 
-  def highest_total_score	
-    total = 0
-    @games.each do |game|
-      total_score = game.away_goals.to_i + game.home_goals.to_i
-      if total_score > total 
-        total = total_score
-      end
-    end
-    total
-  end
-
-  def lowest_total_score
-    total = 0
-    games.each do |game|
-        total_score = game.away_goals.to_i + game.home_goals.to_i
-        if total_score < total
-            total = total_score
-        end
-    end
-    total
-  end
-
-  def count_of_teams
-    @teams.count
-  end
-
-  # Calculates the percentage of games won by the home team
-  def percentage_home_wins
-    total_games = @games.size
-    home_wins = @games.count { |game| game.home_goals.to_i > game.away_goals.to_i }
-    ((home_wins.to_f / total_games) * 100).round(2)
-  end
-
-  # Calculates the percentage of games won by the visiting team
-  def percentage_visitor_wins
-    total_games = @games.size
-    visitor_wins = @games.count { |game| game.away_goals.to_i > game.home_goals.to_i }
-    ((visitor_wins.to_f / total_games) * 100).round(2)
-  end
-
-  # Calculates the percentage of games that ended in a tie
-  def percentage_ties
-    total_games = @games.size
-    ties = @games.count { |game| game.home_goals.to_i == game.away_goals.to_i }
-    ((ties.to_f / total_games) * 100).round(2)
-  end
-
-  # Calculates the winningest coach based on win percentage for a specific season
-  def winningest_coach(season_id)
-    coach_stats = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0 } }
-
-    # Filter game_teams data for the specific season
-    @game_teams.each do |game_team|
-      next unless game_team.season == season_id # Only consider games in the specified season
-
-      coach = game_team.head_coach
-      coach_stats[coach][:games] += 1
-      coach_stats[coach][:wins] += 1 if game_team.result == "WIN"
+  describe '#initialize' do
+    it 'exists' do
+      expect(@stat_calculator).to be_an_instance_of(StatCalculator)
     end
 
-    # Calculate win percentage for each coach and return the coach with the highest percentage
-    highest_win_coach = coach_stats.max_by do |coach, stats|
-      stats[:wins].to_f / stats[:games]
+    it 'has attributes' do
+      expect(@stat_calculator.games).to eq(Games.all)
+      expect(@stat_calculator.teams).to eq(Teams.all)
+      expect(@stat_calculator.game_teams).to eq(GameTeams.all)
     end
-
-    highest_win_coach ? highest_win_coach.first : nil # Return the coach name or nil if no data
   end
 
-  # Calculates the worst coach based on win percentage for a specific season
-  def worst_coach(season_id)
-    coach_stats = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0 } }
-
-    # Filter game_teams data for the specific season
-    @game_teams.each do |game_team|
-      next unless game_team.season == season_id # Only consider games in the specified season
-
-      coach = game_team.head_coach
-      coach_stats[coach][:games] += 1
-      coach_stats[coach][:wins] += 1 if game_team.result == "WIN"
+  describe '#count_of_teams' do
+    it 'returns the number of teams' do
+      expect(@stat_calculator.count_of_teams).to eq(32)
+      expect(Teams.all.count).to eq(32)
     end
+  end
 
-    # Calculate win percentage for each coach and return the coach with the lowest percentage
-    lowest_win_coach = coach_stats.min_by do |coach, stats|
-      stats[:wins].to_f / stats[:games]
+  describe '#highest_total_score' do
+    it 'returns the highest total score' do
+      expect(@stat_calculator.highest_total_score).to eq(11)
     end
+  end
 
-    lowest_win_coach ? lowest_win_coach.first : nil # Return the coach name or nil if no data
+  describe '#lowest_total_score' do
+    it 'returns the lowest total score' do
+      expect(@stat_calculator.lowest_total_score).to eq(0)  
+    end
+  end
+
+  # Tests for Win Percentage Calculations
+
+  describe '#percentage_home_wins' do
+    it 'calculates the percentage of games won by the home team' do
+      expect(@stat_calculator.percentage_home_wins).to be_a(Float)
+    end
+  end
+
+  describe '#percentage_visitor_wins' do
+    it 'calculates the percentage of games won by the visiting team' do
+      expect(@stat_calculator.percentage_visitor_wins).to be_a(Float)
+    end
+  end
+
+  describe '#percentage_ties' do
+    it 'calculates the percentage of games that ended in a tie' do
+      expect(@stat_calculator.percentage_ties).to be_a(Float)
+    end
+  end
+
+  # Tests for Coach Performance Calculations by Season
+
+  describe '#winningest_coach' do
+    it 'returns the coach with the highest win percentage for a specific season' do
+      expect(@stat_calculator.winningest_coach(@season_id)).to eq(@expected_winningest_coach)
+    end
+  end
+
+  describe '#worst_coach' do
+    it 'returns the coach with the lowest win percentage for a specific season' do
+      expect(@stat_calculator.worst_coach(@season_id)).to eq(@expected_worst_coach)
+    end
   end
 end
