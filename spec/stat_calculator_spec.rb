@@ -31,7 +31,7 @@ RSpec.describe StatCalculator do
   # Check that the result is a Float (e.g., 33.33)
     expect(@stat_calculator.percentage_visitor_wins).to be_a(Float)
   end
-  
+
   # Test for calculating the percentage of games that ended in a tie
   it 'calculates percentage_ties' do
     # Check that the result is a Float (e.g., 0.0 or 50.0)
