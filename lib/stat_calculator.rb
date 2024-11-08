@@ -37,24 +37,16 @@ class StatCalculator
   end
 
   def lowest_scoring_visitor
-    all_scores = {}
+    all_scores = Hash.new { |hash, key| hash[key] = [] }
 
     @games.each do |game|
-      if all_scores[game.away_team_id].nil?
-        all_scores[game.away_team_id] = [game.away_goals]
-      else
-        all_scores[game.away_team_id] << game.away_goals
-      end
+      all_scores[game.away_team_id] << game.away_goals
     end
     
-    all_average_scores = {}
-
-    all_scores.each do |team_id, scores|
-      num_of_scores = scores.count
-      sum_of_scores = scores.sum
-      average_score = sum_of_scores.to_f / scores.count.to_f
-
-      all_average_scores[team_id] = average_score.round(3)
+    #transform_values allows you to create a new hash using the same keys
+    #useful for when you want to do math on values without altering the hash structure
+    all_average_scores = all_scores.transform_values do |scores|
+      (scores.sum.to_f / scores.size).round(3)
     end
     
     lowest_score = all_average_scores.min_by do |team_id, score|
