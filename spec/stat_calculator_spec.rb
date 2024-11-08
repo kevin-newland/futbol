@@ -63,6 +63,18 @@ RSpec.describe StatCalculator do
     end
   end
 
+  describe '#highest_scoring_visitor' do
+    it 'returns the name of the away team with the highest average score' do
+      expect(@stat_calculator.highest_scoring_visitor).to eq("FC Dallas")
+    end
+  end
+
+  describe '#lowest_scoring_visitor' do
+    it 'returns the name of the away team with the lowest average score' do
+      expect(@stat_calculator.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+    end
+  end
+
   describe '#count_of_games_by_season' do
     it 'returns the total number of games for each season' do
       expected = {
