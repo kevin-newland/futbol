@@ -10,6 +10,9 @@ RSpec.describe StatCalculator do
     @teams = Teams.all
     @game_teams = GameTeams.all
     @stat_calculator = StatCalculator.new(@games, @teams, @game_teams)
+    # Expected results - update these based csv files
+    @expected_winningest_coach = "Dan Lacroix"    # Ensure this is the coach with the highest win percentage
+    @expected_worst_coach = "Martin Raymond"      # Ensure this is the coach with the lowest win percentage
   end
 
   describe '#initialize' do
@@ -63,6 +66,24 @@ RSpec.describe StatCalculator do
     it 'calculates percentage_ties' do
       # Check that the result is a Float (e.g., 0.0 or 50.0)
       expect(@stat_calculator.percentage_ties).to be_a(Float)
+    end
+  end
+
+  # Tests for Coach Performance Calculations
+
+  # Test for the winningest_coach method
+  describe '#winningest_coach' do
+    it 'returns the coach with the highest win percentage' do
+      # Replace 'Expected Coach Name' with the name of the coach expected to have the highest win percentage
+      expect(@stat_calculator.winningest_coach).to eq(@expected_winningest_coach)
+    end
+  end
+
+  # Test for the worst_coach method
+  describe '#worst_coach' do
+    it 'returns the coach with the lowest win percentage' do
+      # Replace 'Expected Worst Coach Name' with the name of the coach expected to have the lowest win percentage
+      expect(@stat_calculator.worst_coach).to eq(@expected_worst_coach)
     end
   end
 end
