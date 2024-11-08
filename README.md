@@ -72,4 +72,4 @@ Our team has established the following check-in structure to maintain consistent
 | Kristin Weiland   | [LinkedIn Profile](https://www.linkedin.com/in/kristin-weiland-7787159/)         | [GitHub Profile](https://github.com/KMPWeiland)        |
 | Qory Dozier   | [LinkedIn Profile](http://www.linkedin.com/in/sequoyahdozier)         | [GitHub Profile](https://github.com/qoryhanisagal)        |
 | Dustin Peukert   | N/A         | [GitHub Profile](https://github.com/DustinPeukert)        |
-Starter repository for the [Turing School](https://turing.edu/) Futbol project.
+
