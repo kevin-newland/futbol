@@ -49,5 +49,9 @@ RSpec.describe StatCalculator do
     end
   end
 
-  #lowest_scoring_visitor
+  describe '#lowest_scoring_visitor' do
+    it 'returns the name of the visitor with the lowest score' do
+      expect(@stat_calculator.lowest_scoring_visitor).to eq("San Jose Earthquakes")
+    end
+  end
 end
