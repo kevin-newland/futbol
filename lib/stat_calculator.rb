@@ -135,4 +135,28 @@ class StatCalculator
     end
     season_games
   end
+
+  def highest_scoring_home_team
+    all_scores = Hash.new { |hash, key| hash[key] = [] }
+
+    @games.each do |game|
+      all_scores[game.home_team_id] << game.home_goals
+    end
+    
+    all_average_scores = all_scores.transform_values do |scores|
+      (scores.sum.to_f / scores.size).round(3)
+    end
+    
+    highest_score = all_average_scores.max_by do |team_id, score|
+      score
+    end
+    
+    highest_team_id = highest_score[0].to_i
+    
+    team = @teams.find do |team|
+      team.team_id == highest_team_id
+    end
+
+    team.team_name
+  end
 end
