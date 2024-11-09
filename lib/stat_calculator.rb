@@ -135,4 +135,22 @@ class StatCalculator
     end
     season_games
   end
+
+  def best_offense
+    team_goals_games = Hash.new{ |hash, key| hash[key] = {goals: 0, games: 0}}
+
+    @game_teams.each do |game_team|
+      team_id = game_team.team_id
+      team_goals_games[team_id][:goals] += game_team.goals
+      team_goals_games[team_id][:games] += 1
+    end
+
+    best_offense_team = team_goals_games.max_by do |team_id, info|
+      info[:goals].to_f/info[:games].to_f
+    end[0]
+    # [0] ensures only the team_id is being pulled
+    
+    best_offense = @teams.find { |team| team.team_id.to_s == best_offense_team.to_s}
+    best_offense.team_name
+  end
 end
