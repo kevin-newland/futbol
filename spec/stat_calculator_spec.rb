@@ -100,4 +100,11 @@ RSpec.describe StatCalculator do
       expect(@stat_calculator.worst_offense).to eq("Utah Royals FC")
     end
   end
+
+  describe '#most_tackles' do
+    it "Returns name of the Team with the most tackles in the season" do
+      expect(@stat_calculator.most_tackles("20132014")).to eq("FC Cincinnati")
+      expect(@stat_calculator.most_tackles("20142015")).to eq("Seattle Sounders FC")
+    end
+  end
 end
