@@ -171,4 +171,36 @@ class StatCalculator
     worst_offense = @teams.find { |team| team.team_id.to_s == worst_offense_team.to_s}
     worst_offense.team_name
   end
+
+  def most_tackles(season)
+    game_ids_for_season = []
+    @games.each do |game|
+      if game.season == season
+        game_ids_for_season << game.game_id
+      end
+    end
+   
+    team_tackles = {}
+    @game_teams.each do |game_team|
+      if game_ids_for_season.include?(game_team.game_id)
+        team_tackles[game_team.team_id] ||= 0
+        team_tackles[game_team.team_id] += game_team.tackles
+      end
+    end
+    
+    team_with_most_tackles = nil
+    most_tackles = 0
+    team_tackles.each do |team_id, tackles|
+      if tackles > most_tackles
+        most_tackles = tackles
+        team_with_most_tackles = team_id
+      end
+    end
+    
+    @teams.each do |team|
+      if team.team_id.to_s == team_with_most_tackles.to_s
+        return team.team_name
+      end
+    end
+  end  
 end
