@@ -46,21 +46,40 @@ RSpec.describe StatCalculator do
     end
   end
 
-  # Tests for Coach Performance Calculations
+    # Tests for Win Percentage Calculations
 
-  # Test for the winningest_coach method
-  describe '#winningest_coach' do
-    it 'returns the coach with the highest win percentage' do
-      # Replace 'Expected Coach Name' with the name of the coach expected to have the highest win percentage
-      expect(@stat_calculator.winningest_coach).to eq(@expected_winningest_coach)
+  describe '#percentage_home_wins' do
+    it 'calculates the percentage of games won by the home team' do
+      expect(@stat_calculator.percentage_home_wins).to be_a(Float)
     end
   end
 
-  # Test for the worst_coach method
+  describe '#percentage_visitor_wins' do
+    it 'calculates the percentage of games won by the visiting team' do
+      expect(@stat_calculator.percentage_visitor_wins).to be_a(Float)
+    end
+  end
+
+  describe '#percentage_ties' do
+    it 'calculates the percentage of games that ended in a tie' do
+      expect(@stat_calculator.percentage_ties).to be_a(Float)
+    end
+  end
+
+  # Tests for Coach Performance Calculations by Season
+
+  describe '#winningest_coach' do
+    it 'returns the coach with the highest win percentage for a specific season' do
+      expect(@stat_calculator.winningest_coach(@season_id)).to eq(@expected_winningest_coach)
+    end
+  end
+
   describe '#worst_coach' do
-    it 'returns the coach with the lowest win percentage' do
-      # Replace 'Expected Worst Coach Name' with the name of the coach expected to have the lowest win percentage
-      expect(@stat_calculator.worst_coach).to eq(@expected_worst_coach)
+    it 'returns the coach with the lowest win percentage for a specific season' do
+      expect(@stat_calculator.worst_coach(@season_id)).to eq(@expected_worst_coach)
     end
   end
 end
+
+  
+
