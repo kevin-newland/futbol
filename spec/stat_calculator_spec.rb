@@ -88,4 +88,10 @@ RSpec.describe StatCalculator do
       expect(@stat_calculator.count_of_games_by_season).to eq(expected)
     end
   end
+
+  describe '#best_offense' do
+    it "#best_offense" do
+      expect(@stat_calculator.best_offense).to eq("Reign FC")
+    end
+  end
 end
