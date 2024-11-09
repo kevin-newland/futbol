@@ -90,10 +90,14 @@ RSpec.describe StatCalculator do
   end
 
   describe '#highest_scoring_home_team' do
-    expect(@stat_calculator.highest_scoring_home_team).to eq("Reign FC")
+    it 'returns the name of the home team with the highest average score' do
+      expect(@stat_calculator.highest_scoring_home_team).to eq("Reign FC")
+    end
   end
 
   describe '#lowest_scoring_home_team' do
-    expect(@stat_calculator.lowest_scoring_home_team).to eq("Utah Royals FC")
+    it 'returns the name of the home team with the lowest average score' do
+      expect(@stat_calculator.lowest_scoring_home_team).to eq("Utah Royals FC")
+    end
   end
 end
