@@ -5,7 +5,6 @@ The **Futbol Project** is a collaborative software development initiative design
 
 ---
 
-
 ## Organization and Workflow
 - **GitHub Repository:** All code is pushed to a shared GitHub repository with protected branches to ensure code quality and avoid accidental changes to main.
 - **Branching Strategy:** We adopted a feature-branch workflow. Each team member creates a branch for their assigned methods and submits pull requests for peer review.
