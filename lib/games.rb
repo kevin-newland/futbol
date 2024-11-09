@@ -36,5 +36,9 @@ class Games
     def self.all
       @@games_instances
     end
+
+    def self.reset
+      @@games_instances = []
+    end
 end
   

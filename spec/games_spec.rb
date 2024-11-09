@@ -31,8 +31,10 @@ RSpec.describe Games do
             expect(@game_objects[0].home_team_id).to eq("6")
             expect(@game_objects[1].away_goals).to eq(2)
             expect(@game_objects[1].game_id).to eq("2012030222")
+            Games.reset
         end
     end
+
 
     describe '#self.load_csv' do 
         it 'creates games from csv' do
@@ -48,6 +50,8 @@ RSpec.describe Games do
             expect(games[0].home_team_id).to eq("6")
             expect(games[1].away_goals).to eq(2)
             expect(games[1].game_id).to eq("2012030222")
+            Games.reset
         end
     end
+
 end

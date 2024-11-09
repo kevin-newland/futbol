@@ -89,6 +89,18 @@ RSpec.describe StatCalculator do
     end
   end
 
+  describe '#highest_scoring_home_team' do
+    it 'returns the name of the home team with the highest average score' do
+      expect(@stat_calculator.highest_scoring_home_team).to eq("Reign FC")
+    end
+  end
+
+  describe '#lowest_scoring_home_team' do
+    it 'returns the name of the home team with the lowest average score' do
+      expect(@stat_calculator.lowest_scoring_home_team).to eq("Utah Royals FC")
+    end
+  end
+      
   describe '#best_offense' do
     it "Returns name of the team with the highest average number of goals scored per game across all seasons" do
       expect(@stat_calculator.best_offense).to eq("Reign FC")
