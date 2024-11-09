@@ -88,4 +88,8 @@ RSpec.describe StatCalculator do
       expect(@stat_calculator.count_of_games_by_season).to eq(expected)
     end
   end
+
+  describe '#highest_scoring_home_team' do
+    expect(@stat_calculator.highest_scoring_home_team).to eq("Reign FC")
+  end
 end
