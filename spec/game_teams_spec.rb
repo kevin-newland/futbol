@@ -55,6 +55,8 @@ RSpec.describe GameTeams do
         GameTeams.all.each do |object|
           expect(object).to be_an_instance_of(GameTeams)
         end
+
+        GameTeams.reset
       end
     end
   end
@@ -62,7 +64,6 @@ RSpec.describe GameTeams do
   describe '#from_csv' do
     context 'when given a path string, it will create objects using the data in the csv file' do
       before(:all) do
-        GameTeams.reset #Our tester method to reset our class variable
         game_teams_path = './spec/fixtures/fixture_game_teams.csv'
         GameTeams.from_csv(game_teams_path)
       end
@@ -91,6 +92,8 @@ RSpec.describe GameTeams do
         expect(GameTeams.all[1].goals).to eq(3)
         expect(GameTeams.all[1].shots).to eq(12)
         expect(GameTeams.all[1].tackles).to eq(51)
+
+        GameTeams.reset
       end
     end
   end

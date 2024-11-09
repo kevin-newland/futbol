@@ -12,14 +12,11 @@ RSpec.describe Teams do
       team1 = Teams.new(1, "Atlanta United")
       expect(team1.team_id).to eq(1)
       expect(team1.team_name).to eq("Atlanta United")
+      Teams.reset
     end
   end
 
   describe '#self.load_csv' do
-    before(:all) do
-      Teams.reset
-    end
-
     it 'creates team from path and adds them to array through iteration' do
       file_path = './spec/fixtures/fixture_teams.csv'
       teams = Teams.load_csv(file_path)
@@ -36,6 +33,7 @@ RSpec.describe Teams do
       expect(Teams.all[1].team_name).to eq("Chicago Fire")
       expect(Teams.all[2].team_id).to eq(26)
       expect(Teams.all[2].team_name).to eq("FC Cincinnati")
+      Teams.reset
     end
   end
 end

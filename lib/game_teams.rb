@@ -43,8 +43,8 @@ class GameTeams
   end
 
   # This method is for TESTING ONLY
-  # Needed a way to reset @instances between the tests as class
-  # variables persist throughout a file
+  # Needed a way to reset @@instances between the tests as class
+  # variables persist throughout a test run
   def self.reset
     @@instances.clear
   end
