@@ -88,4 +88,16 @@ RSpec.describe StatCalculator do
       expect(@stat_calculator.count_of_games_by_season).to eq(expected)
     end
   end
+
+  describe '#best_offense' do
+    it "Returns name of the team with the highest average number of goals scored per game across all seasons" do
+      expect(@stat_calculator.best_offense).to eq("Reign FC")
+    end
+  end
+
+  describe '#worst_offense' do
+    it "Returns name of the team with the lowest average number of goals scored per game across all seasons" do
+      expect(@stat_calculator.worst_offense).to eq("Utah Royals FC")
+    end
+  end
 end
