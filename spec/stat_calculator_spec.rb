@@ -72,21 +72,40 @@ RSpec.describe StatCalculator do
 
   describe '#percentage_home_wins' do
     it 'calculates the percentage of games won by the home team' do
-      expect(@stat_calculator.percentage_home_wins).to be_a(Float)
+      expected_percentage = 43.5 # Replace with correct value
+      expect(@stat_calculator.percentage_home_wins).to eq(expected_percentage)
+    end
+
+    it 'returns 0.0 when there are no games' do
+      empty_stat_calculator = StatCalculator.new([], @teams, @game_teams)
+      expect(empty_stat_calculator.percentage_home_wins).to eq(0.0)
     end
   end
 
   describe '#percentage_visitor_wins' do
     it 'calculates the percentage of games won by the visiting team' do
-      expect(@stat_calculator.percentage_visitor_wins).to be_a(Float)
+      expected_percentage = 36.11 # Replace with correct value
+      expect(@stat_calculator.percentage_visitor_wins).to eq(expected_percentage)
+    end
+
+    it 'returns 0.0 when there are no games' do
+      empty_stat_calculator = StatCalculator.new([], @teams, @game_teams)
+      expect(empty_stat_calculator.percentage_visitor_wins).to eq(0.0)
     end
   end
 
   describe '#percentage_ties' do
-    it 'calculates the percentage of games that ended in a tie' do
-      expect(@stat_calculator.percentage_ties).to be_a(Float)
+    it 'calculates the percentage of games that resulted in a tie' do
+      expected_percentage = 20.39 # Replace with correct value
+      expect(@stat_calculator.percentage_ties).to eq(expected_percentage)
+    end
+
+    it 'returns 0.0 when there are no games' do
+      empty_stat_calculator = StatCalculator.new([], @teams, @game_teams)
+      expect(empty_stat_calculator.percentage_ties).to eq(0.0)
     end
   end
+end
 
   # Tests for Coach Performance Calculations by Season
 
