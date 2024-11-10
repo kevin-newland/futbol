@@ -1,11 +1,13 @@
 # Goal Oriented Coders: Turing Fubol Project
 
 ## Summary
+
 The **Futbol Project** is a collaborative software development initiative designed to analyze and process soccer-related data using Ruby. The project employs test-driven development (TDD) to ensure functionality, adaptability, and code quality. Our goal is to create dynamic, reusable methods that calculate and present key statistics based on input data while maintaining alignment with industry-standard principles like the Single Responsibility Principle (SRP) and DRY (Don’t Repeat Yourself).
 
 ---
 
 ## Organization and Workflow
+
 - **GitHub Repository:** All code is pushed to a shared GitHub repository with protected branches to ensure code quality and avoid accidental changes to main.
 - **Branching Strategy:** We adopted a feature-branch workflow. Each team member creates a branch for their assigned methods and submits pull requests for peer review.
 - **Code Reviews:** Pull requests must be reviewed and approved by at least one other team member before merging into the main branch.
@@ -13,7 +15,9 @@ The **Futbol Project** is a collaborative software development initiative design
 - **Project Management Tool:** (https://turingschool.slack.com/lists/T029P2S9M/F07UWA2U2J0?view_id=View07V6F99XL1)
 
 ---
+
 ## Communication Plan 
+
 Our team has established the following check-in structure to maintain consistent communication and collaboration throughout the project:
 - **Daily Check-Ins:** During designated work blocks (3-4 hours) in class, team members will discuss progress, address blockers, and assign tasks for the day.
 - **Slack Updates:** Team members will post updates in the Slack channel if they are unable to attend a daily check-in or complete assigned tasks outside of work blocks.
@@ -57,11 +61,13 @@ The Stat Calculator class is the core of the project, responsible for processing
 #### 3.	**Data Loader Classes**
 These classes are responsible for loading and organizing data from CSV files, ensuring clean and accessible inputs for the Stat Calculator:
 
+
   - **Games:** Responsible for loading and organizing game data.
   - **Teams:** Responsible for handling team-related data.
   - **GameTeams:** Manages data that links games and teams.
 
 #### 4. **Test Driven Development:**
+
   - **Fixtures:** Serves as predefined data sets 
   - **Isolation Testing:** Stubs & Mocks
 
@@ -72,6 +78,7 @@ Contributors worked collaboratively to implement methods within the **Stat Calcu
 ---
 
 ## DTR Document
+
 The **Define the Relationship (DTR)** document serves as the foundation for team collaboration on the Futbol Project. It outlines team expectations, strengths, communication styles, and workflows to ensure alignment and productive teamwork throughout the project.
 
 **Initial DTR**
@@ -87,6 +94,7 @@ The **Define the Relationship (DTR)** document serves as the foundation for team
 ---
 
 ## Retro 
+
 We utilize Easy Retro for our team Retro.
 
 **Went Well**
@@ -109,6 +117,7 @@ While there were some communication hiccups, frustration with technical approach
 ---
 
 ## Contributors
+
 | Name         | LinkedIn                      | GitHub                     |
 |--------------|-------------------------------|----------------------------|
 | Kevin Newland    | [LinkedIn Profile](https://www.linkedin.com/in/kevin-newland-95b719179/)         | [GitHub Profile](https://github.com/kevin-newland)        |
