@@ -68,30 +68,6 @@ RSpec.describe StatCalculator do
     end
   end
 
-<<<<<<< HEAD
-    # Tests for Win Percentage Calculations
-
-  describe '#percentage_home_wins' do
-    it 'calculates the percentage of games won by the home team' do
-      expect(@stat_calculator.percentage_home_wins).to be_a(Float)
-    end
-  end
-
-  describe '#percentage_visitor_wins' do
-    it 'calculates the percentage of games won by the visiting team' do
-      expect(@stat_calculator.percentage_visitor_wins).to be_a(Float)
-    end
-  end
-
-  describe '#percentage_ties' do
-    it 'calculates the percentage of games that ended in a tie' do
-      expect(@stat_calculator.percentage_ties).to be_a(Float)
-    end
-  end
-
-  # Tests for Coach Performance Calculations by Season
-
-=======
   # Tests for Win Percentage Calculations
 
   describe '#percentage_home_wins' do
@@ -114,7 +90,6 @@ RSpec.describe StatCalculator do
 
   # Tests for Coach Performance Calculations by Season
 
->>>>>>> 11b8231e4c89b1ca51bad4b97bf5bede821062c8
   describe '#winningest_coach' do
     it 'returns the coach with the highest win percentage for a specific season' do
       expect(@stat_calculator.winningest_coach(@season_id)).to eq(@expected_winningest_coach)
@@ -126,12 +101,6 @@ RSpec.describe StatCalculator do
       expect(@stat_calculator.worst_coach(@season_id)).to eq(@expected_worst_coach)
     end
   end
-<<<<<<< HEAD
-end
-
-  
-
-=======
 
   describe '#highest_scoring_visitor' do
     it 'returns the name of the away team with the highest average score' do
@@ -183,4 +152,3 @@ end
     end
   end
 end
->>>>>>> 11b8231e4c89b1ca51bad4b97bf5bede821062c8
