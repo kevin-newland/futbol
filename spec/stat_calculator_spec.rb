@@ -68,40 +68,83 @@ RSpec.describe StatCalculator do
     end
   end
 
-  # Tests for Win Percentage Calculations
-
+# Tests for Win Percentage Calculations
+# Test 1: Verifies that the method dynamically calculates the correct percentage of home wins
   describe '#percentage_home_wins' do
-    it 'calculates the percentage of games won by the home team' do
-      expect(@stat_calculator.percentage_home_wins).to be_a(Float)
+    it 'calculates the dynamically determined percentage of games won by the home team' do
+      # Calculate dynamically based on the current dataset
+      home_wins = @games.count { |game| game.home_goals.to_i > game.away_goals.to_i }
+      total_games = @games.size
+      expected_percentage = ((home_wins.to_f / total_games) * 100).round(2)
+
+      expect(@stat_calculator.percentage_home_wins).to eq(expected_percentage)
+    end
+# Test 2: Verifies that the method returns 0.0 when there are no games in the dataset
+    it 'returns 0.0 when there are no games' do
+      empty_stat_calculator = StatCalculator.new([], @teams, @game_teams)
+      expect(empty_stat_calculator.percentage_home_wins).to eq(0.0)
     end
   end
 
+  # Test 3: Verifies that the method dynamically calculates the correct percentage of visitor wins
   describe '#percentage_visitor_wins' do
-    it 'calculates the percentage of games won by the visiting team' do
-      expect(@stat_calculator.percentage_visitor_wins).to be_a(Float)
+    it 'calculates the dynamically determined percentage of games won by the visiting team' do
+      # Calculate dynamically based on the current dataset
+      visitor_wins = @games.count { |game| game.away_goals.to_i > game.home_goals.to_i }
+      total_games = @games.size
+      expected_percentage = ((visitor_wins.to_f / total_games) * 100).round(2)
+
+      expect(@stat_calculator.percentage_visitor_wins).to eq(expected_percentage)
+    end
+ # Test 4: Verifies that the method returns 0.0 when there are no games in the dataset
+    it 'returns 0.0 when there are no games' do
+      empty_stat_calculator = StatCalculator.new([], @teams, @game_teams)
+      expect(empty_stat_calculator.percentage_visitor_wins).to eq(0.0)
     end
   end
 
+  # Test 5: Verifies that the method dynamically calculates the correct percentage of tied games
   describe '#percentage_ties' do
-    it 'calculates the percentage of games that ended in a tie' do
-      expect(@stat_calculator.percentage_ties).to be_a(Float)
+    it 'calculates the dynamically determined percentage of games that resulted in a tie' do
+      # Calculate dynamically based on the current dataset
+      ties = @games.count { |game| game.home_goals.to_i == game.away_goals.to_i }
+      total_games = @games.size
+      expected_percentage = ((ties.to_f / total_games) * 100).round(2)
+
+      expect(@stat_calculator.percentage_ties).to eq(expected_percentage)
+    end
+# Test 6: Verifies that the method returns 0.0 when there are no games in the dataset
+    it 'returns 0.0 when there are no games' do
+      empty_stat_calculator = StatCalculator.new([], @teams, @game_teams)
+      expect(empty_stat_calculator.percentage_ties).to eq(0.0)
     end
   end
 
   # Tests for Coach Performance Calculations by Season
 
   describe '#winningest_coach' do
+    # Test 1: Ensures the coach with the highest win percentage for a given season is returned
     it 'returns the coach with the highest win percentage for a specific season' do
       expect(@stat_calculator.winningest_coach(@season_id)).to eq(@expected_winningest_coach)
+    end
+
+    # Test 2: Handles edge case where no data exists for the given season
+    it 'returns nil if no games are found for the specified season' do
+      expect(@stat_calculator.winningest_coach("INVALID_SEASON")).to be_nil
     end
   end
 
   describe '#worst_coach' do
+    # Test 1: Ensures the coach with the lowest win percentage for a given season is returned
     it 'returns the coach with the lowest win percentage for a specific season' do
       expect(@stat_calculator.worst_coach(@season_id)).to eq(@expected_worst_coach)
     end
-  end
 
+    # Test 2: Handles edge case where no data exists for the given season
+    it 'returns nil if no games are found for the specified season' do
+      expect(@stat_calculator.worst_coach("INVALID_SEASON")).to be_nil
+    end
+  end
   describe '#highest_scoring_visitor' do
     it 'returns the name of the away team with the highest average score' do
       expect(@stat_calculator.highest_scoring_visitor).to eq("FC Dallas")
