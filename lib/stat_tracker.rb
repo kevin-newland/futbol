@@ -26,9 +26,9 @@ class StatTracker
   end
 
   def create_databases
-  @game_teams.from_csv(@game_teams_path)
-  @games.load_csv(@game_path)
-  @teams.load_csv(@team_path)
+    @game_teams.from_csv(@game_teams_path)
+    @games.load_csv(@game_path)
+    @teams.load_csv(@team_path)
   end
 end
 
