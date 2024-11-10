@@ -19,6 +19,7 @@ class StatTracker
     @games = Games
 
     create_databases
+    create_stat_calculator
   end
 
   def self.from_csv(locations)
@@ -29,6 +30,10 @@ class StatTracker
     @game_teams.from_csv(@game_teams_path)
     @games.load_csv(@game_path)
     @teams.load_csv(@team_path)
+  end
+
+  def create_stat_calculator
+    @stat_calculator = StatCalculator.new(@games, @teams, @game_teams)
   end
 end
 
