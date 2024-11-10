@@ -65,10 +65,10 @@ class StatCalculator
   def lowest_total_score
     total = 0
     @games.each do |game|
-        total_score = game.away_goals.to_i + game.home_goals.to_i
-        if total_score < total
-            total = total_score
-        end
+      total_score = game.away_goals.to_i + game.home_goals.to_i
+      if total_score < total
+          total = total_score
+      end
     end
     total
   end
