@@ -9,7 +9,7 @@ class StatCalculator
     @game_teams = game_teams
   end
 
-    def inspect
+  def inspect
     "#<StatCalculator: games_count=#{@games.count}, teams_count=#{@teams.count}, game_teams_count=#{@game_teams.count}>"
   end
 
