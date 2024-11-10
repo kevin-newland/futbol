@@ -68,7 +68,7 @@ RSpec.describe StatCalculator do
     end
   end
 
-  # Tests for Win Percentage Calculations
+# Tests for Win Percentage Calculations
 # Test 1: Verifies that the method dynamically calculates the correct percentage of home wins
   describe '#percentage_home_wins' do
     it 'calculates the dynamically determined percentage of games won by the home team' do
