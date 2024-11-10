@@ -75,7 +75,7 @@ RSpec.describe StatCalculator do
       # Calculate dynamically based on the current dataset
       home_wins = @games.count { |game| game.home_goals.to_i > game.away_goals.to_i }
       total_games = @games.size
-      expected_percentage = ((home_wins.to_f / total_games) * 100).round(2)
+      expected_percentage = ((home_wins.to_f / total_games)).round(2)
 
       expect(@stat_calculator.percentage_home_wins).to eq(expected_percentage)
     end
@@ -92,7 +92,7 @@ RSpec.describe StatCalculator do
       # Calculate dynamically based on the current dataset
       visitor_wins = @games.count { |game| game.away_goals.to_i > game.home_goals.to_i }
       total_games = @games.size
-      expected_percentage = ((visitor_wins.to_f / total_games) * 100).round(2)
+      expected_percentage = ((visitor_wins.to_f / total_games)).round(2)
 
       expect(@stat_calculator.percentage_visitor_wins).to eq(expected_percentage)
     end
@@ -109,7 +109,7 @@ RSpec.describe StatCalculator do
       # Calculate dynamically based on the current dataset
       ties = @games.count { |game| game.home_goals.to_i == game.away_goals.to_i }
       total_games = @games.size
-      expected_percentage = ((ties.to_f / total_games) * 100).round(2)
+      expected_percentage = ((ties.to_f / total_games)).round(2)
 
       expect(@stat_calculator.percentage_ties).to eq(expected_percentage)
     end
