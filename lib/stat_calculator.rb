@@ -78,81 +78,81 @@ class StatCalculator
   end
 
   # Calculates the percentage of games that satisfy a given condition
-def calculate_percentage(condition)
-  total_games = @games.size # Dynamically get total games
-  return 0.0 if total_games.zero? # Avoid division by zero
+  def calculate_percentage(condition)
+    total_games = @games.size # Dynamically get total games
+    return 0.0 if total_games.zero? # Avoid division by zero
 
-  # Dynamically count games matching the condition
-  wins = @games.count { |game| condition.call(game) }
-  (wins.to_f / total_games * 100).round(2) # Dynamically calculate percentage
-end
+    # Dynamically count games matching the condition
+    wins = @games.count { |game| condition.call(game) }
+    (wins.to_f / total_games * 100).round(2) # Dynamically calculate percentage
+  end
 
-# Dynamically calculates the percentage of games won by the home team
-def percentage_home_wins
-  calculate_percentage(->(game) { game.home_goals.to_i > game.away_goals.to_i })
-end
+  # Dynamically calculates the percentage of games won by the home team
+  def percentage_home_wins
+    calculate_percentage(->(game) { game.home_goals.to_i > game.away_goals.to_i })
+  end
 
-# Dynamically calculates the percentage of games won by the visiting team
-def percentage_visitor_wins
-  calculate_percentage(->(game) { game.away_goals.to_i > game.home_goals.to_i })
-end
+  # Dynamically calculates the percentage of games won by the visiting team
+  def percentage_visitor_wins
+    calculate_percentage(->(game) { game.away_goals.to_i > game.home_goals.to_i })
+  end
 
-# Dynamically calculates the percentage of games that resulted in a tie
-def percentage_ties
-  calculate_percentage(->(game) { game.home_goals.to_i == game.away_goals.to_i })
-end
+  # Dynamically calculates the percentage of games that resulted in a tie
+  def percentage_ties
+    calculate_percentage(->(game) { game.home_goals.to_i == game.away_goals.to_i })
+  end
 
   # Calculate Coach Performance
 
-def winningest_coach(season_id)
-  # Map game_id to season from @games
-  game_seasons = @games.each_with_object({}) do |game, hash|
-    hash[game.game_id] = game.season
+  def winningest_coach(season_id)
+    # Map game_id to season from @games
+    game_seasons = @games.each_with_object({}) do |game, hash|
+      hash[game.game_id] = game.season
+    end
+
+    coach_stats = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0 } }
+
+    # Iterate over game_teams and filter by season using game_seasons
+    @game_teams.each do |game_team|
+      next unless game_seasons[game_team.game_id] == season_id
+
+      coach = game_team.head_coach
+      coach_stats[coach][:games] += 1
+      coach_stats[coach][:wins] += 1 if game_team.result == "WIN"
+    end
+
+    # Calculate win percentage for each coach and return the coach with the highest percentage
+    highest_win_coach = coach_stats.max_by do |_, stats|
+      stats[:wins].to_f / stats[:games]
+    end
+
+    highest_win_coach&.first # Return the coach name or nil if no data
   end
 
-  coach_stats = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0 } }
+  def worst_coach(season_id)
+    # Map game_id to season from @games
+    game_seasons = @games.each_with_object({}) do |game, hash|
+      hash[game.game_id] = game.season
+    end
 
-  # Iterate over game_teams and filter by season using game_seasons
-  @game_teams.each do |game_team|
-    next unless game_seasons[game_team.game_id] == season_id
+    coach_stats = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0 } }
 
-    coach = game_team.head_coach
-    coach_stats[coach][:games] += 1
-    coach_stats[coach][:wins] += 1 if game_team.result == "WIN"
+    # Iterate over game_teams and filter by season using game_seasons
+    @game_teams.each do |game_team|
+      next unless game_seasons[game_team.game_id] == season_id
+
+      coach = game_team.head_coach
+      coach_stats[coach][:games] += 1
+      coach_stats[coach][:wins] += 1 if game_team.result == "WIN"
+    end
+
+    # Calculate win percentage for each coach and return the coach with the lowest percentage
+    lowest_win_coach = coach_stats.min_by do |_, stats|
+      stats[:wins].to_f / stats[:games]
+    end
+
+    lowest_win_coach&.first # Return the coach name or nil if no data
   end
-
-  # Calculate win percentage for each coach and return the coach with the highest percentage
-  highest_win_coach = coach_stats.max_by do |_, stats|
-    stats[:wins].to_f / stats[:games]
-  end
-
-  highest_win_coach&.first # Return the coach name or nil if no data
-end
-
-def worst_coach(season_id)
-  # Map game_id to season from @games
-  game_seasons = @games.each_with_object({}) do |game, hash|
-    hash[game.game_id] = game.season
-  end
-
-  coach_stats = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0 } }
-
-  # Iterate over game_teams and filter by season using game_seasons
-  @game_teams.each do |game_team|
-    next unless game_seasons[game_team.game_id] == season_id
-
-    coach = game_team.head_coach
-    coach_stats[coach][:games] += 1
-    coach_stats[coach][:wins] += 1 if game_team.result == "WIN"
-  end
-
-  # Calculate win percentage for each coach and return the coach with the lowest percentage
-  lowest_win_coach = coach_stats.min_by do |_, stats|
-    stats[:wins].to_f / stats[:games]
-  end
-
-  lowest_win_coach&.first # Return the coach name or nil if no data
-end
 
   def lowest_scoring_visitor
     all_scores = Hash.new { |hash, key| hash[key] = [] }
