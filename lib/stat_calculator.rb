@@ -84,7 +84,7 @@ class StatCalculator
 
     # Dynamically count games matching the condition
     wins = @games.count { |game| condition.call(game) }
-    (wins.to_f / total_games * 100).round(2) # Dynamically calculate percentage
+    (wins.to_f / total_games).round(2) # Dynamically calculate percentage
   end
 
   # Dynamically calculates the percentage of games won by the home team
