@@ -121,7 +121,7 @@ RSpec.describe StatCalculator do
   end
 
   # Tests for Coach Performance Calculations by Season
-  
+
   describe '#winningest_coach' do
     # Test 1: Ensures the coach with the highest win percentage for a given season is returned
     it 'returns the coach with the highest win percentage for a specific season' do
