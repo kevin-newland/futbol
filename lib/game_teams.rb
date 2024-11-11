@@ -36,6 +36,7 @@ class GameTeams
         row[:tackles].to_i
       )
     end
+    @@instances
   end
 
   def self.all
