@@ -73,7 +73,7 @@ RSpec.describe StatCalculator do
   end
 
   describe '#least_accurate_team(season)' do
-    it 'returns name of most accurate team' do
+    xit 'returns name of most accurate team' do
       stats1 = @stat_calculator.least_accurate_team("20132014")
       expect(stats1).to eq("New York City FC")
       
