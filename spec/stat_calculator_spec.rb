@@ -122,17 +122,37 @@ RSpec.describe StatCalculator do
 
   # Tests for Coach Performance Calculations by Season
 
-  describe '#winningest_coach' do
-    # Test 1: Ensures the coach with the highest win percentage for a given season is returned
-    it 'returns the coach with the highest win percentage for a specific season' do
-      expect(@stat_calculator.winningest_coach(@season_id)).to eq(@expected_winningest_coach)
-    end
-
-    # Test 2: Handles edge case where no data exists for the given season
-    it 'returns nil if no games are found for the specified season' do
-      expect(@stat_calculator.winningest_coach("INVALID_SEASON")).to be_nil
-    end
+describe '#winningest_coach' do
+  # Test 1: Ensures the coach with the highest win percentage for a given season is returned
+  it 'returns the coach with the highest win percentage for a specific season' do
+    expect(@stat_calculator.winningest_coach(@season_id)).to eq(@expected_winningest_coach)
   end
+
+  # Test 2: Handles edge case where no data exists for the given season
+  it 'returns nil if no games are found for the specified season' do
+    expect(@stat_calculator.winningest_coach("INVALID_SEASON")).to be_nil
+  end
+
+  # Test 3: Handles a season where multiple coaches exist with data
+  it 'correctly determines the coach with the highest win percentage when multiple coaches exist' do
+    season_with_multiple_coaches = "20132014" # Season ID where multiple coaches have data
+    expected_coach = "Claude Julien" # Expected coach.
+    expect(@stat_calculator.winningest_coach(season_with_multiple_coaches)).to eq(expected_coach)
+  end
+
+  # Test 4: Handles a dataset with only one coach for the season
+  it 'returns the only coach available for the season when there is only one' do
+    season_with_one_coach = "20142015" # Season ID where only one coach exists
+    expected_coach = "Alain Vigneault" # Expected coach
+    expect(@stat_calculator.winningest_coach(season_with_one_coach)).to eq(expected_coach)
+  end
+
+  # Test 5: Handles a season where all games are losses
+  it 'returns nil when all coaches have a win percentage of 0.0 for the season' do
+    season_with_no_wins = "2013021105" # Replace with a real season ID where all games are losses
+    expect(@stat_calculator.winningest_coach(season_with_no_wins)).to be_nil
+  end
+end
 
   describe '#worst_coach' do
     # Test 1: Ensures the coach with the lowest win percentage for a given season is returned
