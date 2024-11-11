@@ -55,4 +55,11 @@ RSpec.describe StatTracker do
       expect(stat_tracker.games.all[0].season).to eq("20122013")
     end
   end
+
+  describe '#create_stat_calculator' do
+    it 'creates and returns an instance of StatCalculator' do
+      stat_tracker = StatTracker.from_csv(@locations)
+      expect(stat_tracker.create_stat_calculator).to be_an_instance_of(StatCalculator)
+    end
+  end
 end
