@@ -12,6 +12,8 @@ game_teams = GameTeams.from_csv('./data/game_teams.csv')
 stat_calculator = StatCalculator.new(games, teams, game_teams)
 
 puts "========== StatCalculator Results =========="
+
+puts "========== StatCalculator Results =========="
 # Command Outputs
 puts "Average Goals Per Game: #{stat_calculator.average_goals_per_game}"
 puts "Average Goals By Season: #{stat_calculator.average_goals_by_season}"
@@ -43,5 +45,3 @@ puts "Fewest Tackles (#{season_id}): #{stat_calculator.fewest_tackles(season_id)
 
 # Games by Season
 puts "Games By Season: #{stat_calculator.count_of_games_by_season}"
-
-puts "========== StatCalculator End Report =========="
