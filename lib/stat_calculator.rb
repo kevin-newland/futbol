@@ -35,4 +35,29 @@ class StatCalculator
   def count_of_teams
     @teams.count
   end
+
+  def game_ids_in_season(season)
+    #filter games to get games for the specified season
+    game_ids = []
+    games.each do |game|
+      if game.season == season
+        game_ids << game.game_id
+      end
+    end
+    game_ids
+  end
+
+  def game_teams_in_season(season)
+    #extract game IDs from filtered games
+    game_ids = game_ids_in_season(season) #game ids from season
+    season_game_teams = []
+    @game_teams.each do |game_team|
+      #include game_team data only if its game_id is part of the season
+      if game_ids.include?(game_team.game_id) 
+        season_game_teams << game_team
+      end
+    end
+    season_game_teams 
+  end
+
 end

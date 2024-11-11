@@ -42,4 +42,17 @@ RSpec.describe StatCalculator do
       expect(@stat_calculator.lowest_total_score).to eq(0)  
     end
   end
+
+  describe '#game_ids_in_season(season)' do
+    it 'filter games in the specified season' do
+      expect(@stat_calculator.game_ids_in_season("20122013").count).to eq(806)
+    end
+  end
+
+  describe '#game_teams_in_season(season)' do
+    it 'filter games_teams in the specified season' do
+      expect(@stat_calculator.game_teams_in_season("20122013").count).to eq(1612)
+    end
+  end
+
 end
