@@ -55,4 +55,30 @@ RSpec.describe StatCalculator do
     end
   end
 
+  describe '#teams_shot_ratios_by_season(season)' do
+    it 'filter teams in the specified season' do
+      stats = @stat_calculator.teams_shot_ratios_by_season("20122013")
+      expect(stats.count).to eq(30)
+    end
+  end
+
+  describe '#most_accurate_team(season)' do
+    it 'returns name of most accurate team' do
+      stats1 = @stat_calculator.most_accurate_team("20132014")
+      expect(stats1).to eq("Real Salt Lake")
+      
+      stats2 = @stat_calculator.most_accurate_team("20142015")
+      expect(stats2).to eq("Toronto FC")
+    end
+  end
+
+  describe '#least_accurate_team(season)' do
+    it 'returns name of most accurate team' do
+      stats1 = @stat_calculator.least_accurate_team("20132014")
+      expect(stats1).to eq("New York City FC")
+      
+      stats2 = @stat_calculator.least_accurate_team("20142015")
+      expect(stats2).to eq("Columbus Crew SC")
+    end
+  end
 end

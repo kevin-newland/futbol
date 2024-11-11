@@ -36,6 +36,12 @@ class StatCalculator
     @teams.count
   end
 
+  def most_accurate_team(season)
+  end
+
+  def least_accurate_team(season)
+  end
+
   def game_ids_in_season(season)
     #filter games to get games for the specified season
     game_ids = []
@@ -59,5 +65,34 @@ class StatCalculator
     end
     season_game_teams 
   end
+
+  def teams_shot_ratios_by_season(season)
+    #accumulate total shots and goals for each game in that season
+    game_teams = game_teams_in_season(season)
+    stats = {}
+    game_teams.each do |game_team|
+      team_id = game_team.team_id
+      ratio = 0 
+      #calculate accuracy ratio (goals/shots)
+      if game_team.shots != 0
+        ratio = game_team.goals.to_f / game_team.shots.to_f
+      end
+      if stats[team_id].nil? 
+        stats[team_id] = []
+      end
+      stats[team_id] << ratio
+    end
+    averages = {}
+    stats.each do |team_id, ratios|
+      average = 0 
+      if ratios.length != 0
+        average = ratios.sum.to_f / ratios.length
+      end
+      averages[team_id] = average
+    end
+    averages
+  end
+
+
 
 end
