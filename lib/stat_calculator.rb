@@ -58,6 +58,24 @@ class StatCalculator
   end
 
   def least_accurate_team(season)
+    #return name of the Team with the best ratio of shots to goals for the given season
+    accuracy_by_team = teams_shot_ratios_by_season(season)
+    worst_team = nil
+    worst_average = 10000000000.00
+
+    #find team with the highest accuracy
+    accuracy_by_team.each do |team_id, average|
+      if average < worst_average 
+        worst_average = average
+        worst_team = team_id
+      end
+    end
+
+    #find team name by best_team ID
+    team = teams.find { |t| t.team_id.to_i == worst_team.to_i }
+
+    # Return the team name or nil if not found
+    team ? team.team_name : nil  
   end
 
   def game_ids_in_season(season)
