@@ -28,13 +28,13 @@ class StatTracker
   end
 
   def create_databases
-    @game_teams_data = @game_teams.from_csv(@game_teams_path)
-    @games_data = @games.load_csv(@game_path)
-    @teams_data = @teams.load_csv(@team_path)
+    @game_teams.from_csv(@game_teams_path)
+    @games.load_csv(@game_path)
+    @teams.load_csv(@team_path)
   end
 
   def create_stat_calculator
-    StatCalculator.new(@games_data, @teams_data, @game_teams_data)
+    StatCalculator.new(@games.all, @teams.all, @game_teams.all)
   end
 
   def average_goals_per_game
@@ -102,7 +102,7 @@ class StatTracker
   end
 
   def worst_offense
-    @stat_calculator.worst_coach
+    @stat_calculator.worst_offense
   end
 
   def most_tackles(season_id)
