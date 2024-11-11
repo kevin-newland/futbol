@@ -204,14 +204,28 @@ end
   end
       
   describe '#best_offense' do
-    it "Returns name of the team with the highest average number of goals scored per game across all seasons" do
+    it "returns name of the team with the highest average number of goals scored per game across all seasons" do
       expect(@stat_calculator.best_offense).to eq("Reign FC")
     end
   end
 
   describe '#worst_offense' do
-    it "Returns name of the team with the lowest average number of goals scored per game across all seasons" do
+    it "returns name of the team with the lowest average number of goals scored per game across all seasons" do
       expect(@stat_calculator.worst_offense).to eq("Utah Royals FC")
+    end
+  end
+
+  describe '#most_tackles' do
+    it "returns name of the Team with the most tackles in the season" do
+      expect(@stat_calculator.most_tackles("20132014")).to eq("FC Cincinnati")
+      expect(@stat_calculator.most_tackles("20142015")).to eq("Seattle Sounders FC")
+    end
+  end
+
+  describe '#fewest_tackles' do
+    it "returns name of the Team with the fewest tackles in the season" do
+      expect(@stat_calculator.fewest_tackles("20132014")).to eq("Atlanta United")
+      expect(@stat_calculator.fewest_tackles("20142015")).to eq("Orlando City SC")
     end
   end
 end
