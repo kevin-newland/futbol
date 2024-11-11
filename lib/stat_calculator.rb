@@ -362,6 +362,58 @@ class StatCalculator
       if team.team_id.to_s == team_with_least_tackles.to_s
         return team.team_name
       end
+  end
+end
+
+  def most_accurate_team(season)
+    # Calculate shot-to-goal ratios for all teams in the given season
+    accuracy_by_team = teams_shot_ratios_by_season(season)
+
+    # Find the team with the highest accuracy ratio
+    best_team_id, _best_average = accuracy_by_team.max_by { |_team_id, ratio| ratio }
+
+    # Find the name of the team with the best accuracy ratio
+    best_team = teams.find { |team| team.team_id == best_team_id }
+
+    best_team ? best_team.team_name : nil
+  end
+
+  def least_accurate_team(season)
+    # Calculate shot-to-goal ratios for all teams in the given season
+    accuracy_by_team = teams_shot_ratios_by_season(season)
+
+    # Find the team with the lowest accuracy ratio
+    worst_team_id, _worst_average = accuracy_by_team.min_by { |_team_id, ratio| ratio }
+
+    # Find the name of the team with the worst accuracy ratio
+    worst_team = teams.find { |team| team.team_id == worst_team_id }
+
+    worst_team ? worst_team.team_name : nil
+  end
+
+  private
+
+  def teams_shot_ratios_by_season(season)
+    # Get game_teams data filtered by the season
+    game_teams_in_season = game_teams_in_season(season)
+
+    # Calculate shot-to-goal ratios for each team
+    stats = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
+
+    game_teams_in_season.each do |game_team|
+      stats[game_team.team_id][:goals] += game_team.goals
+      stats[game_team.team_id][:shots] += game_team.shots
     end
+
+    # Calculate average accuracy for each team
+    stats.transform_values do |stat|
+      stat[:goals].to_f / stat[:shots] # Ratio of goals to shots
+    end
+  end
+
+  def game_teams_in_season(season)
+    # Filter game_teams by games that belong to the given season
+    game_ids_in_season = @games.select { |game| game.season == season }.map(&:game_id)
+    @game_teams.select { |game_team| game_ids_in_season.include?(game_team.game_id) }
   end
 end

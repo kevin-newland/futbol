@@ -215,17 +215,23 @@ end
     end
   end
 
-  describe '#most_tackles' do
-    it "returns name of the Team with the most tackles in the season" do
-      expect(@stat_calculator.most_tackles("20132014")).to eq("FC Cincinnati")
-      expect(@stat_calculator.most_tackles("20142015")).to eq("Seattle Sounders FC")
-    end
-  end
-
   describe '#fewest_tackles' do
     it "returns name of the Team with the fewest tackles in the season" do
       expect(@stat_calculator.fewest_tackles("20132014")).to eq("Atlanta United")
       expect(@stat_calculator.fewest_tackles("20142015")).to eq("Orlando City SC")
     end
+  end
+
+    describe '#most_accurate_team' do
+  it 'returns the name of the team with the best ratio of shots to goals for the season' do
+    expect(@stat_calculator.most_accurate_team("20132014")).to eq("Real Salt Lake")
+    expect(@stat_calculator.most_accurate_team("20142015")).to eq("Toronto FC")
+  end
+end
+
+describe '#least_accurate_team' do
+  it 'returns the name of the team with the worst ratio of shots to goals for the season' do
+    expect(@stat_calculator.least_accurate_team("20132014")).to eq("New York City FC")
+    expect(@stat_calculator.least_accurate_team("20142015")).to eq("Columbus Crew SC")
   end
 end
