@@ -112,6 +112,7 @@ class StatTracker
   def fewest_tackles(season_id)
     @stat_calculator.fewest_tackles(season_id)
   end
+
     def most_accurate_team(season)
     @stat_calculator.most_accurate_team(season)
   end
