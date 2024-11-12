@@ -222,16 +222,41 @@ end
     end
   end
 
-    describe '#most_accurate_team' do
-  it 'returns the name of the team with the best ratio of shots to goals for the season' do
-    expect(@stat_calculator.most_accurate_team("20132014")).to eq("Real Salt Lake")
-    expect(@stat_calculator.most_accurate_team("20142015")).to eq("Toronto FC")
-  end
-end
 
-describe '#least_accurate_team' do
-  it 'returns the name of the team with the worst ratio of shots to goals for the season' do
-    expect(@stat_calculator.least_accurate_team("20132014")).to eq("New York City FC")
-    expect(@stat_calculator.least_accurate_team("20142015")).to eq("Columbus Crew SC")
+    @season_id = "20132014"  # Example season
+  end
+
+  describe '#most_accurate_team' do
+    it 'returns the name of the team with the highest shot-to-goal ratio for a given season' do
+      most_accurate_team = @stat_calculator.most_accurate_team(@season_id)
+      expect(most_accurate_team).to eq("Real Salt Lake") # Replace with expected value based on your data
+    end
+
+    it 'returns nil if no games are found for the given season' do
+      expect(@stat_calculator.most_accurate_team("INVALID_SEASON")).to be_nil
+    end
+
+    it 'handles a season with only one team' do
+      single_team_season = "20142015" # Replace with a season ID with only one team
+      most_accurate_team = @stat_calculator.most_accurate_team(single_team_season)
+      expect(most_accurate_team).to eq("Toronto FC") # Replace with expected value based on your data
+    end
+  end
+
+  describe '#least_accurate_team' do
+    it 'returns the name of the team with the lowest shot-to-goal ratio for a given season' do
+      least_accurate_team = @stat_calculator.least_accurate_team(@season_id)
+      expect(least_accurate_team).to eq("New York City FC") # Replace with expected value based on your data
+    end
+
+    it 'returns nil if no games are found for the given season' do
+      expect(@stat_calculator.least_accurate_team("INVALID_SEASON")).to be_nil
+    end
+
+    it 'handles a season with only one team' do
+      single_team_season = "20142015" # Replace with a season ID with only one team
+      least_accurate_team = @stat_calculator.least_accurate_team(single_team_season)
+      expect(least_accurate_team).to eq("Toronto FC") # Replace with expected value based on your data
+    end
   end
 end

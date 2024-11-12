@@ -365,55 +365,46 @@ class StatCalculator
   end
 end
 
-  def most_accurate_team(season)
-    # Calculate shot-to-goal ratios for all teams in the given season
-    accuracy_by_team = teams_shot_ratios_by_season(season)
+def most_accurate_team(season)
+  # Get all game_ids for the specified season
+  game_ids_in_season = games_in_season(season)
 
-    # Find the team with the highest accuracy ratio
-    best_team_id, _best_average = accuracy_by_team.max_by { |_team_id, ratio| ratio }
+  # Filter game_teams for the selected game_ids
+  season_game_teams = @game_teams.select { |game_team| game_ids_in_season.include?(game_team.game_id) }
 
-    # Find the name of the team with the best accuracy ratio
-    best_team = teams.find { |team| team.team_id == best_team_id }
+  # Calculate shot-to-goal ratios for each team
+  accuracy_by_team = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
 
-    best_team ? best_team.team_name : nil
+  season_game_teams.each do |game_team|
+    accuracy_by_team[game_team.team_id][:goals] += game_team.goals
+    accuracy_by_team[game_team.team_id][:shots] += game_team.shots
   end
 
-  def least_accurate_team(season)
-    # Calculate shot-to-goal ratios for all teams in the given season
-    accuracy_by_team = teams_shot_ratios_by_season(season)
+  # Find the team with the best accuracy
+  best_team_id, _best_ratio = accuracy_by_team.max_by { |_team_id, stats| stats[:goals].to_f / stats[:shots] }
 
-    # Find the team with the lowest accuracy ratio
-    worst_team_id, _worst_average = accuracy_by_team.min_by { |_team_id, ratio| ratio }
+  best_team = @teams.find { |team| team.team_id.to_i == best_team_id.to_i }
+  best_team ? best_team.team_name : nil
+end
 
-    # Find the name of the team with the worst accuracy ratio
-    worst_team = teams.find { |team| team.team_id == worst_team_id }
+def least_accurate_team(season)
+  # Get all game_ids for the specified season
+  game_ids_in_season = games_in_season(season)
 
-    worst_team ? worst_team.team_name : nil
+  # Filter game_teams for the selected game_ids
+  season_game_teams = @game_teams.select { |game_team| game_ids_in_season.include?(game_team.game_id) }
+
+  # Calculate shot-to-goal ratios for each team
+  accuracy_by_team = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
+
+  season_game_teams.each do |game_team|
+    accuracy_by_team[game_team.team_id][:goals] += game_team.goals
+    accuracy_by_team[game_team.team_id][:shots] += game_team.shots
   end
 
-  private
+  # Find the team with the worst accuracy
+  worst_team_id, _worst_ratio = accuracy_by_team.min_by { |_team_id, stats| stats[:goals].to_f / stats[:shots] }
 
-  def teams_shot_ratios_by_season(season)
-    # Get game_teams data filtered by the season
-    game_teams_in_season = game_teams_in_season(season)
-
-    # Calculate shot-to-goal ratios for each team
-    stats = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
-
-    game_teams_in_season.each do |game_team|
-      stats[game_team.team_id][:goals] += game_team.goals
-      stats[game_team.team_id][:shots] += game_team.shots
-    end
-
-    # Calculate average accuracy for each team
-    stats.transform_values do |stat|
-      stat[:goals].to_f / stat[:shots] # Ratio of goals to shots
-    end
-  end
-
-  def game_teams_in_season(season)
-    # Filter game_teams by games that belong to the given season
-    game_ids_in_season = @games.select { |game| game.season == season }.map(&:game_id)
-    @game_teams.select { |game_team| game_ids_in_season.include?(game_team.game_id) }
-  end
+  worst_team = @teams.find { |team| team.team_id.to_i == worst_team_id.to_i }
+  worst_team ? worst_team.team_name : nil
 end
