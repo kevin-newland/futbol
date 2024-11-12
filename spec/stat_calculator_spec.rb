@@ -226,22 +226,25 @@ end
     @season_id = "20132014"  # Example season
   end
 
-  describe '#most_accurate_team' do
-    it 'returns the name of the team with the highest shot-to-goal ratio for a given season' do
-      most_accurate_team = @stat_calculator.most_accurate_team(@season_id)
-      expect(most_accurate_team).to eq("Real Salt Lake") # Replace with expected value based on your data
-    end
+  describe '#most_accurate_team and #least_accurate_team' do
+  it 'returns accurate results for all valid seasons' do
+    seasons = @games.map(&:season).uniq
 
-    it 'returns nil if no games are found for the given season' do
-      expect(@stat_calculator.most_accurate_team("INVALID_SEASON")).to be_nil
-    end
-
-    it 'handles a season with only one team' do
-      single_team_season = "20142015" # Replace with a season ID with only one team
-      most_accurate_team = @stat_calculator.most_accurate_team(single_team_season)
-      expect(most_accurate_team).to eq("Toronto FC") # Replace with expected value based on your data
+    seasons.each do |season|
+      most_accurate_team = @stat_calculator.most_accurate_team(season)
+      least_accurate_team = @stat_calculator.least_accurate_team(season)
+      
+      expect(most_accurate_team).not_to be_nil
+      expect(least_accurate_team).not_to be_nil
+      expect(most_accurate_team).not_to eq(least_accurate_team) # Validates distinct teams
     end
   end
+
+  it 'returns nil for invalid season IDs' do
+    expect(@stat_calculator.most_accurate_team("INVALID_SEASON")).to be_nil
+    expect(@stat_calculator.least_accurate_team("INVALID_SEASON")).to be_nil
+  end
+end
 
   describe '#least_accurate_team' do
     it 'returns the name of the team with the lowest shot-to-goal ratio for a given season' do

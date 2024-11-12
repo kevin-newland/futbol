@@ -365,26 +365,33 @@ class StatCalculator
   end
 end
 
-def most_accurate_team(season)
-  # Get all game_ids for the specified season
-  game_ids_in_season = games_in_season(season)
 
-  # Filter game_teams for the selected game_ids
-  season_game_teams = @game_teams.select { |game_team| game_ids_in_season.include?(game_team.game_id) }
+  def most_accurate_team(season)
+    game_ids_in_season = games_in_season(season)
 
-  # Calculate shot-to-goal ratios for each team
-  accuracy_by_team = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
+    # Filter game_teams for the selected game_ids
+    season_game_teams = @game_teams.select { |game_team| game_ids_in_season.include?(game_team.game_id) }
 
-  season_game_teams.each do |game_team|
-    accuracy_by_team[game_team.team_id][:goals] += game_team.goals
-    accuracy_by_team[game_team.team_id][:shots] += game_team.shots
+    # Calculate shot-to-goal ratios for each team
+    accuracy_by_team = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
+
+    season_game_teams.each do |game_team|
+      accuracy_by_team[game_team.team_id][:goals] += game_team.goals
+      accuracy_by_team[game_team.team_id][:shots] += game_team.shots
+    end
+
+    # Find the team with the best accuracy
+    best_team_id, _best_ratio = accuracy_by_team.max_by { |_team_id, stats| stats[:goals].to_f / stats[:shots] }
+
+    best_team = @teams.find { |team| team.team_id.to_i == best_team_id.to_i }
+    best_team ? best_team.team_name : nil
   end
 
-  # Find the team with the best accuracy
-  best_team_id, _best_ratio = accuracy_by_team.max_by { |_team_id, stats| stats[:goals].to_f / stats[:shots] }
+  private
 
-  best_team = @teams.find { |team| team.team_id.to_i == best_team_id.to_i }
-  best_team ? best_team.team_name : nil
+  def games_in_season(season)
+    @games.select { |game| game.season == season }.map(&:game_id)
+  end
 end
 
 def least_accurate_team(season)
@@ -407,4 +414,8 @@ def least_accurate_team(season)
 
   worst_team = @teams.find { |team| team.team_id.to_i == worst_team_id.to_i }
   worst_team ? worst_team.team_name : nil
+end
+
+def games_in_season(season)
+  @games.select { |game| game.season == season }.map(&:game_id)
 end
