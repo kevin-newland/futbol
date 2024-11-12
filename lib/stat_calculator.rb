@@ -66,7 +66,6 @@ class StatCalculator
   end
 end
 
-=begin
   def average_goals_per_game
     away_goals = 0
     home_goals = 0
@@ -418,39 +417,3 @@ def fewest_tackles(season)
     end
   end
 end
-
-  def games_in_season(season)
-    @games.select { |game| game.season == season }.map(&:game_id)
-  end
-
-  def most_accurate_team(season)
-    game_ids_in_season = games_in_season(season)
-    season_game_teams = @game_teams.select { |game_team| game_ids_in_season.include?(game_team.game_id) }
-
-    accuracy_by_team = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
-    season_game_teams.each do |game_team|
-      accuracy_by_team[game_team.team_id][:goals] += game_team.goals
-      accuracy_by_team[game_team.team_id][:shots] += game_team.shots
-    end
-
-    best_team_id, _ = accuracy_by_team.max_by { |_team_id, stats| stats[:goals].to_f / stats[:shots] }
-    best_team = @teams.find { |team| team.team_id.to_i == best_team_id.to_i }
-    best_team ? best_team.team_name : nil
-  end
-
-  def least_accurate_team(season)
-    game_ids_in_season = games_in_season(season)
-    season_game_teams = @game_teams.select { |game_team| game_ids_in_season.include?(game_team.game_id) }
-
-    accuracy_by_team = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
-    season_game_teams.each do |game_team|
-      accuracy_by_team[game_team.team_id][:goals] += game_team.goals
-      accuracy_by_team[game_team.team_id][:shots] += game_team.shots
-    end
-
-    worst_team_id, _ = accuracy_by_team.min_by { |_team_id, stats| stats[:goals].to_f / stats[:shots] }
-    worst_team = @teams.find { |team| team.team_id.to_i == worst_team_id.to_i }
-    worst_team ? worst_team.team_name : nil
-  end
-end
-=end

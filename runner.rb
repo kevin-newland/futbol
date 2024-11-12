@@ -13,7 +13,7 @@ stat_calculator = StatCalculator.new(games, teams, game_teams)
 
 puts "========== StatCalculator Results =========="
 
-# Command Outputs
+# Scoring Statistics
 puts "Average Goals Per Game: #{stat_calculator.average_goals_per_game}"
 puts "Average Goals By Season: #{stat_calculator.average_goals_by_season}"
 puts "Highest Total Score: #{stat_calculator.highest_total_score}"
