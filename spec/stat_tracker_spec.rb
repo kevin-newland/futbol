@@ -11,6 +11,8 @@ RSpec.describe StatTracker do
       teams: team_path,
       game_teams: game_teams_path
     }
+# Initialize StatTracker using from_csv method
+    @stat_tracker = StatTracker.from_csv(@locations)
   end
 
   describe '#initialize' do

@@ -37,6 +37,14 @@ class StatTracker
     StatCalculator.new(@games.all, @teams.all, @game_teams.all)
   end
 
+  def most_accurate_team(season)
+    @stat_calculator.most_accurate_team(season)
+  end
+
+  def least_accurate_team(season)
+    @stat_calculator.least_accurate_team(season)
+  end
+  
   def average_goals_per_game
     @stat_calculator.average_goals_per_game
   end

@@ -13,7 +13,7 @@ stat_calculator = StatCalculator.new(games, teams, game_teams)
 
 puts "========== StatCalculator Results =========="
 
-# Command Outputs
+# Scoring Statistics
 puts "Average Goals Per Game: #{stat_calculator.average_goals_per_game}"
 puts "Average Goals By Season: #{stat_calculator.average_goals_by_season}"
 puts "Highest Total Score: #{stat_calculator.highest_total_score}"
@@ -37,6 +37,8 @@ puts "Highest Scoring Home Team: #{stat_calculator.highest_scoring_home_team}"
 puts "Lowest Scoring Home Team: #{stat_calculator.lowest_scoring_home_team}"
 puts "Best Offense: #{stat_calculator.best_offense}"
 puts "Worst Offense: #{stat_calculator.worst_offense}"
+puts "Most Accurate Team (#{season_id}): #{stat_calculator.most_accurate_team(season_id)}"
+puts "Least Accurate Team (#{season_id}): #{stat_calculator.least_accurate_team(season_id)}"
 
 # Tackles
 puts "Most Tackles (#{season_id}): #{stat_calculator.most_tackles(season_id)}"

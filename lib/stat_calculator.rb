@@ -1,12 +1,63 @@
 class StatCalculator
-  attr_reader :games,
-              :teams,
-              :game_teams
+  attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)
     @games = games
     @teams = teams
     @game_teams = game_teams
+
+    # Debugging outputs
+    puts "Games Count in StatCalculator: #{@games.count}"
+    puts "Teams Count in StatCalculator: #{@teams.count}"
+    puts "GameTeams Count in StatCalculator: #{@game_teams.count}"
+  end
+
+  def games_in_season(season)
+    @games.select { |game| game.season == season }.map(&:game_id)
+  end
+
+  def most_accurate_team(season)
+    # Step 1: Filter game IDs for the specific season
+    game_ids_in_season = games_in_season(season)
+
+    # Step 2: Filter game_teams by season's game IDs
+    season_game_teams = @game_teams.select { |game_team| game_ids_in_season.include?(game_team.game_id) }
+
+    # Step 3: Calculate accuracy for each team (goals/shots)
+    accuracy_by_team = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
+    season_game_teams.each do |game_team|
+      accuracy_by_team[game_team.team_id][:goals] += game_team.goals
+      accuracy_by_team[game_team.team_id][:shots] += game_team.shots
+    end
+
+    # Step 4: Find the team with the highest accuracy
+    best_team_id, = accuracy_by_team.max_by { |_team_id, stats| stats[:goals].to_f / stats[:shots] }
+
+    # Step 5: Find the corresponding team name
+    best_team = @teams.find { |team| team.team_id.to_i == best_team_id.to_i }
+    best_team ? best_team.team_name : nil
+  end
+
+  def least_accurate_team(season)
+    # Step 1: Filter game IDs for the specific season
+    game_ids_in_season = games_in_season(season)
+
+    # Step 2: Filter game_teams by season's game IDs
+    season_game_teams = @game_teams.select { |game_team| game_ids_in_season.include?(game_team.game_id) }
+
+    # Step 3: Calculate accuracy for each team (goals/shots)
+    accuracy_by_team = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
+    season_game_teams.each do |game_team|
+      accuracy_by_team[game_team.team_id][:goals] += game_team.goals
+      accuracy_by_team[game_team.team_id][:shots] += game_team.shots
+    end
+
+    # Step 4: Find the team with the lowest accuracy
+    worst_team_id, = accuracy_by_team.min_by { |_team_id, stats| stats[:goals].to_f / stats[:shots] }
+
+    # Step 5: Find the corresponding team name
+    worst_team = @teams.find { |team| team.team_id.to_i == worst_team_id.to_i }
+    worst_team ? worst_team.team_name : nil
   end
 
   def inspect
@@ -26,17 +77,17 @@ class StatCalculator
 
     total_goals = away_goals + home_goals
 
-    average_goals = total_goals.to_f/total_games.to_f  #when dividing both need to be a float in order to work
+    average_goals = total_goals.to_f / total_games.to_f # when dividing both need to be a float in order to work
     average_goals.round(2)
   end
 
   def average_goals_by_season
     season_goals = {}
-  
+
     @games.each do |game|
       season = game.season
-      
-      season_goals[season] ||= {total_goals: 0, number_games: 0}
+
+      season_goals[season] ||= { total_goals: 0, number_games: 0 }
 
       season_goals[season][:total_goals] += game.away_goals + game.home_goals
       season_goals[season][:number_games] += 1
@@ -45,31 +96,23 @@ class StatCalculator
     average_goals_season = {}
 
     season_goals.each do |season, info|
-      average_goals_season[season] = (info[:total_goals].to_f/info[:number_games]).round(2)
+      average_goals_season[season] = (info[:total_goals].to_f / info[:number_games]).round(2)
     end
 
     average_goals_season
   end
 
-  def highest_total_score	
+  def highest_total_score
     total = 0
     @games.each do |game|
       total_score = game.away_goals.to_i + game.home_goals.to_i
-      if total_score > total 
-        total = total_score
-      end
+      total = total_score if total_score > total
     end
     total
   end
 
   def lowest_total_score
-    total = 0
-    @games.each do |game|
-      total_score = game.away_goals.to_i + game.home_goals.to_i
-      if total_score < total
-          total = total_score
-      end
-    end
+    total = @games.map { |game| game.away_goals.to_i + game.home_goals.to_i }.min
     total
   end
 
@@ -77,7 +120,7 @@ class StatCalculator
     @teams.count
   end
 
-  # Calculates the percentage of games that satisfy a given condition
+ # Calculates the percentage of games that satisfy a given condition
   def calculate_percentage(condition)
     total_games = @games.size # Dynamically get total games
     return 0.0 if total_games.zero? # Avoid division by zero
@@ -331,7 +374,7 @@ class StatCalculator
         return team.team_name
       end
     end
-  end  
+  end
 
   def fewest_tackles(season)
     game_ids_for_season = []
@@ -340,7 +383,7 @@ class StatCalculator
         game_ids_for_season << game.game_id
       end
     end
-   
+    
     team_tackles = {}
     @game_teams.each do |game_team|
       if game_ids_for_season.include?(game_team.game_id)
@@ -348,16 +391,16 @@ class StatCalculator
         team_tackles[game_team.team_id] += game_team.tackles
       end
     end
-    
+
     team_with_least_tackles = nil
-    least_tackles = 1000000 #random number I chose, just needed a big enough number
+    least_tackles = 1000000 #random number need to be large
     team_tackles.each do |team_id, tackles|
       if tackles < least_tackles
         least_tackles = tackles
         team_with_least_tackles = team_id
       end
     end
-    
+
     @teams.each do |team|
       if team.team_id.to_s == team_with_least_tackles.to_s
         return team.team_name
