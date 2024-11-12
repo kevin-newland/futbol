@@ -333,37 +333,37 @@ class StatCalculator
     end
   end  
 
-  def fewest_tackles(season)
-    game_ids_for_season = []
-    @games.each do |game|
-      if game.season == season
-        game_ids_for_season << game.game_id
-      end
+def fewest_tackles(season)
+  game_ids_for_season = []
+  @games.each do |game|
+    if game.season == season
+      game_ids_for_season << game.game_id
     end
-   
-    team_tackles = {}
-    @game_teams.each do |game_team|
-      if game_ids_for_season.include?(game_team.game_id)
-        team_tackles[game_team.team_id] ||= 0
-        team_tackles[game_team.team_id] += game_team.tackles
-      end
+  end
+  
+  team_tackles = {}
+  @game_teams.each do |game_team|
+    if game_ids_for_season.include?(game_team.game_id)
+      team_tackles[game_team.team_id] ||= 0
+      team_tackles[game_team.team_id] += game_team.tackles
     end
-    
-    team_with_least_tackles = nil
-    least_tackles = 1000000 #random number I chose, just needed a big enough number
-    team_tackles.each do |team_id, tackles|
-      if tackles < least_tackles
-        least_tackles = tackles
-        team_with_least_tackles = team_id
-      end
-    end
-    
-    @teams.each do |team|
-      if team.team_id.to_s == team_with_least_tackles.to_s
-        return team.team_name
-      end
-    end
+  end
 
+  team_with_least_tackles = nil
+  least_tackles = 1000000 #random number I chose, just needed a big enough number
+  team_tackles.each do |team_id, tackles|
+    if tackles < least_tackles
+      least_tackles = tackles
+      team_with_least_tackles = team_id
+    end
+  end
+
+  @teams.each do |team|
+    if team.team_id.to_s == team_with_least_tackles.to_s
+      return team.team_name
+    end
+  end
+end
 
   def games_in_season(season)
     @games.select { |game| game.season == season }.map(&:game_id)
