@@ -31,7 +31,7 @@ class StatCalculator
     end
 
     # Step 4: Find the team with the highest accuracy
-    best_team_id, _ = accuracy_by_team.max_by { |_team_id, stats| stats[:goals].to_f / stats[:shots] }
+    best_team_id, = accuracy_by_team.max_by { |_team_id, stats| stats[:goals].to_f / stats[:shots] }
 
     # Step 5: Find the corresponding team name
     best_team = @teams.find { |team| team.team_id.to_i == best_team_id.to_i }
@@ -53,7 +53,7 @@ class StatCalculator
     end
 
     # Step 4: Find the team with the lowest accuracy
-    worst_team_id, _ = accuracy_by_team.min_by { |_team_id, stats| stats[:goals].to_f / stats[:shots] }
+    worst_team_id, = accuracy_by_team.min_by { |_team_id, stats| stats[:goals].to_f / stats[:shots] }
 
     # Step 5: Find the corresponding team name
     worst_team = @teams.find { |team| team.team_id.to_i == worst_team_id.to_i }
@@ -283,7 +283,7 @@ class StatCalculator
 
     team.team_name
   end
-  
+
   def lowest_scoring_home_team
     all_scores = Hash.new { |hash, key| hash[key] = [] }
 
@@ -393,7 +393,7 @@ class StatCalculator
     end
 
     team_with_least_tackles = nil
-    least_tackles = 1000000
+    least_tackles = 1000000 #random number need to be large
     team_tackles.each do |team_id, tackles|
       if tackles < least_tackles
         least_tackles = tackles

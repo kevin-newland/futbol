@@ -22,11 +22,6 @@ RSpec.describe StatCalculator do
     # Initialize the StatCalculator
     @stat_calculator = StatCalculator.new(@games, @teams, @game_teams)
     puts "StatCalculator Initialized: #{@stat_calculator.inspect}" # Should confirm initialization
-
-    # Set season-specific expected results
-    @season_id = "20122013" # A valid season ID from dataset
-    @expected_winningest_coach = "Dan Lacroix" # Example expected result
-    @expected_worst_coach = "Martin Raymond"   # Example expected result
   end
 
   describe '#initialize' do
@@ -51,11 +46,19 @@ RSpec.describe StatCalculator do
 
   describe '#most_accurate_team' do
     it 'returns the most accurate team for a given season' do
-      season = '20132014'
-      expected_team = 'Real Salt Lake' # Replace with actual expected result based on your dataset
-      expect(@stat_calculator.most_accurate_team(season)).to eq(expected_team)
+      expect(@stat_calculator.most_accurate_team("20132014")).to eq("Real Salt Lake")
+      expect(@stat_calculator.most_accurate_team("20142015")).to eq("Toronto FC")
     end
   end
+
+  describe '#least_accurate_team' do
+    it 'returns the least accurate team for a given season' do
+      expect(@stat_calculator.least_accurate_team("20132014")).to eq("New York City FC")
+      expect(@stat_calculator.least_accurate_team("20142015")).to eq("Columbus Crew SC")
+    end
+  end
+end
+
 
   describe '#least_accurate_team' do
     it 'returns the least accurate team for a given season' do
