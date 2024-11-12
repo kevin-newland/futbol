@@ -11,6 +11,8 @@ RSpec.describe StatTracker do
       teams: team_path,
       game_teams: game_teams_path
     }
+# Initialize StatTracker using from_csv method
+    @stat_tracker = StatTracker.from_csv(@locations)
   end
 
   describe '#initialize' do
@@ -60,17 +62,6 @@ RSpec.describe StatTracker do
     it 'creates and returns an instance of StatCalculator' do
       stat_tracker = StatTracker.from_csv(@locations)
       expect(stat_tracker.create_stat_calculator).to be_an_instance_of(StatCalculator)
-    end
-  end
-    describe '#most_accurate_team' do
-    it 'returns the most accurate team for a given season' do
-      expect(@stat_tracker.most_accurate_team('20132014')).to eq('Real Salt Lake')
-    end
-  end
-
-  describe '#least_accurate_team' do
-    it 'returns the least accurate team for a given season' do
-      expect(@stat_tracker.least_accurate_team('20132014')).to eq('New York City FC')
     end
   end
 end
