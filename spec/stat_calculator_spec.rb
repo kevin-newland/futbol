@@ -32,8 +32,16 @@ RSpec.describe StatCalculator do
   describe '#most_accurate_team' do
     it 'returns the most accurate team for a given season' do
       season = '20132014'
-      expected_team = 'Real Salt Lake' # Replace with the actual expected value from your data
+      expected_team = 'Real Salt Lake' 
       expect(@stat_calculator.most_accurate_team(season)).to eq(expected_team)
+    end
+  end
+
+    describe '#least_accurate_team' do
+    it 'returns the least accurate team for a given season' do
+      season = '20132014'
+      expected_team = 'New York City FC' 
+      expect(@stat_calculator.least_accurate_team(season)).to eq(expected_team)
     end
   end
 end
