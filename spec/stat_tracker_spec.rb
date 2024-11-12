@@ -62,4 +62,15 @@ RSpec.describe StatTracker do
       expect(stat_tracker.create_stat_calculator).to be_an_instance_of(StatCalculator)
     end
   end
+    describe '#most_accurate_team' do
+    it 'returns the most accurate team for a given season' do
+      expect(@stat_tracker.most_accurate_team('20132014')).to eq('Real Salt Lake')
+    end
+  end
+
+  describe '#least_accurate_team' do
+    it 'returns the least accurate team for a given season' do
+      expect(@stat_tracker.least_accurate_team('20132014')).to eq('New York City FC')
+    end
+  end
 end
