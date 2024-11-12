@@ -365,7 +365,6 @@ class StatCalculator
   end
 end
 
-
   def most_accurate_team(season)
     game_ids_in_season = games_in_season(season)
 

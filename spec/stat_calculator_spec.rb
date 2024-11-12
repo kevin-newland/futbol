@@ -222,11 +222,12 @@ end
     end
   end
 
-
-    @season_id = "20132014"  # Example season
+    @season_id = "20132014"  
   end
 
   describe '#most_accurate_team and #least_accurate_team' do
+  puts "most_accurate_team method loaded" if self.method_defined?(:most_accurate_team)
+  end
   it 'returns accurate results for all valid seasons' do
     seasons = @games.map(&:season).uniq
 
